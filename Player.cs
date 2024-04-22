@@ -25,6 +25,8 @@ namespace Sluggity
         private Point _previousPosition;
         private float _jumpVelocity;
         private Rectangle _playerRectangle;
+        private bool _isJumping = false; // Flag to track if the player is currently jumping
+        private int _jumpTimer = 0;
 
         private Canvas GameCanvas;
         private List<Rectangle> obstacles = new List<Rectangle>();
@@ -64,22 +66,7 @@ namespace Sluggity
         {
             Point newPosition = Position;
 
-            if (Keyboard.IsKeyDown(Key.Down))
-            {
-                newPosition = new Point(Position.X, Position.Y + _moveSpeed);
-                while (IsCollision(newPosition))
-                {
-                    newPosition.Y--; // Move downwards until no collision
-                }
-            }
-            if (Keyboard.IsKeyDown(Key.Up))
-            {
-                newPosition = new Point(Position.X, Position.Y - _moveSpeed);
-                while (IsCollision(newPosition))
-                {
-                    newPosition.Y++; // Move upwards until no collision
-                }
-            }
+            // Horizontal movement
             if (Keyboard.IsKeyDown(Key.Left))
             {
                 newPosition = new Point(Position.X - _moveSpeed, Position.Y);
@@ -97,8 +84,41 @@ namespace Sluggity
                 }
             }
 
-            Position = newPosition;
+            // Vertical movement (jumping)
+            if (Keyboard.IsKeyDown(Key.Space) && !_isJumping) // Check if not already jumping
+            {
+                _isJumping = true;
+                _jumpTimer = 20; // Set the jump duration (adjust as needed)
+                _jumpVelocity = -20; // Reset jump velocity
+            }
 
+            if (_isJumping)
+            {
+                Point jumpPosition = new Point(newPosition.X, Position.Y + _jumpVelocity);
+                while (IsCollision(jumpPosition))
+                {
+                    jumpPosition.Y++; // Move upwards until no collision
+                }
+
+                newPosition = jumpPosition;
+                _jumpVelocity++; // Apply gravity to the jump
+                _jumpTimer--;
+
+                if (_jumpTimer <= 0 || _jumpVelocity >= 0)
+                {
+                    _isJumping = false; // Reset jump flag when jump ends or reaches maximum height
+                }
+            } else
+            {
+                // Apply gravity
+                newPosition = new Point(newPosition.X, Position.Y + _gravityScale);
+                while (IsCollision(newPosition))
+                {
+                    newPosition.Y--; // Move downwards until no collision
+                }
+            }
+
+            Position = newPosition;
         }
         public void AdjustGravity()
         {
