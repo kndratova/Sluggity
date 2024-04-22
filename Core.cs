@@ -15,7 +15,12 @@ namespace Sluggity
             GameTimer.Interval = TimeSpan.FromMilliseconds(TimerInterval);
             GameTimer.Start();
 
-            GameTimer.Tick += WriteTickDebug; 
+            GameTimer.Tick += Update; 
+        }
+
+        private void Update(object sender, EventArgs e)
+        {
+
         }
 
         private void WriteTickDebug(object sender, EventArgs e)
