@@ -1,0 +1,12 @@
+﻿<Window x:Class="Sluggity.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="450" Width="800">
+    <Canvas x:Name="GameCanvas">
+        <!-- Player -->
+        <Rectangle x:Name="PlayerRect" Width="50" Height="50" Fill="Blue"
+                   Canvas.Left="{Binding Path=Position.X}" Canvas.Top="{Binding Path=Position.Y}"/>
+
+        <!-- Obstacle -->
+    </Canvas>
+</Window>
