@@ -8,9 +8,14 @@
         <Rectangle Tag="Obstacle" Width="40" Height="106" Fill="Black" Canvas.Left="320" Canvas.Top="280" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <Rectangle Tag="Obstacle" Width="100" Height="24" Fill="Black" Canvas.Left="420" Canvas.Top="177" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <Rectangle Tag="Obstacle" Width="100" Height="30" Fill="Black" Canvas.Left="560" Canvas.Top="129" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Rectangle Tag="Obstacle" Width="100" Height="24" Fill="Black" Canvas.Left="420" Canvas.Top="177" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Rectangle Tag="Obstacle" Width="100" Height="24" Fill="Black" Canvas.Left="30" Canvas.Top="205" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Rectangle Tag="Obstacle" Width="40" Height="106" Fill="Black" Canvas.Left="320" Canvas.Top="280" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Rectangle Tag="Obstacle" Width="750" Height="41" Fill="Black" Canvas.Left="20" Canvas.Top="369" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Rectangle Tag="Obstacle" Width="100" Height="24" Fill="Black" Canvas.Left="155" Canvas.Top="280" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Tag="Obstacle" Width="100" Height="24" Fill="Black" Canvas.Left="420" Canvas.Top="177" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Rectangle Tag="Obstacle" Width="100" Height="24" Fill="Black" Canvas.Left="225" Canvas.Top="104" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Tag="Obstacle" Width="100" Height="30" Fill="Black" Canvas.Left="560" Canvas.Top="129" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Rectangle Tag="Obstacle" Width="100" Height="30" Fill="Black" Canvas.Left="600" Canvas.Top="274" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
     </Canvas>
 </Window>
