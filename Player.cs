@@ -12,7 +12,7 @@ namespace Sluggity
     public class Player : INotifyPropertyChanged
     {
         private Point _position;
-        private float _moveSpeed = 4;
+        private float _moveSpeed = 8;
         private float _gravityScale = 1f;
         private float _jumpForce = 16;
         private float _verticalVelocity = 0f;
@@ -48,8 +48,8 @@ namespace Sluggity
 
         public void Move()
         {
-            ApplyGravity(); // Apply gravity before moving
-            Point newPosition = Position; // Store the new position initially as the current position
+            ApplyGravity();
+            Point newPosition = Position;
 
             if (Keyboard.IsKeyDown(Key.Left))
             {
@@ -75,7 +75,6 @@ namespace Sluggity
 
         private void ApplyGravity()
         {
-            // Apply vertical velocity due to gravity
             _verticalVelocity += _gravityScale;
             Point newPosition = new Point(Position.X, Position.Y + _verticalVelocity);
             if (!IsCollision(newPosition))
