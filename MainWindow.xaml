@@ -1,36 +1,40 @@
 ﻿<Window x:Class="Sluggity.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="580" Width="960">
-    <Canvas x:Name="GameCanvas">
-
-        <Rectangle x:Name="PlayerRect" Width="40" Height="40" Fill="Blue"
-                   Canvas.Left="{Binding Path=Position.X}" Canvas.Top="{Binding Path=Position.Y}"/>
-        <Rectangle Tag="Obstacle" Width="1528" Height="329" Fill="Black" Canvas.Left="-284" Canvas.Top="914" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Rectangle Tag="Obstacle" Width="400" Height="20" Fill="Black" Canvas.Left="560" Canvas.Top="814" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Rectangle Tag="Obstacle" Width="400" Height="20" Fill="Black" Canvas.Left="0" Canvas.Top="814" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-
-        <Rectangle Tag="Obstacle" Width="160" Height="20" Fill="Black" Canvas.Left="400" Canvas.Top="714" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Rectangle Tag="Obstacle" Width="480" Height="20" Fill="Black" Canvas.Left="480" Canvas.Top="614" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Rectangle Tag="Obstacle" Width="319" Height="20" Fill="Black" Canvas.Left="641" Canvas.Top="514" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Rectangle Tag="Obstacle" Width="209" Height="20" Fill="Black" Canvas.Left="751" Canvas.Top="414" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Rectangle Tag="Obstacle" Width="251" Height="20" Fill="Black" Canvas.Left="1" Canvas.Top="349" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Rectangle Tag="Obstacle" Width="210" Height="20" Fill="Black" Canvas.Left="191" Canvas.Top="237" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Rectangle Tag="Obstacle" Width="1544" Height="318" Fill="Black" Canvas.Left="-292" Canvas.Top="-298" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-        <Rectangle Tag="Obstacle" Width="305" Height="892" Fill="Black" Canvas.Left="-285" Canvas.Top="22" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Rectangle Tag="Obstacle" Width="312" Height="892" Fill="Black" Canvas.Left="940" Canvas.Top="22" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Rectangle Tag="Obstacle" Width="238" Height="20" Fill="Black" Canvas.Left="21" Canvas.Top="613" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Rectangle Tag="Obstacle" Width="126" Height="20" Fill="Black" Canvas.Left="250" Canvas.Top="512" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Rectangle Tag="Obstacle" Width="209" Height="20" Fill="Black" Canvas.Left="427" Canvas.Top="404" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Rectangle Tag="Obstacle" Width="269" Height="283" Fill="Black" Canvas.Left="-17" Canvas.Top="351" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Rectangle Tag="Obstacle" Width="20" Height="101" Fill="Black" Canvas.Left="380" Canvas.Top="715" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Rectangle Tag="Obstacle" Width="20" Height="213" Fill="Black" Canvas.Left="639" Canvas.Top="314" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Rectangle Tag="Obstacle" Width="265" Height="20" Fill="Black" Canvas.Left="371" Canvas.Top="404" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Rectangle Tag="Obstacle" Width="209" Height="20" Fill="Black" Canvas.Left="642" Canvas.Top="301" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Rectangle Tag="Obstacle" Width="529" Height="20" Fill="Black" Canvas.Left="411" Canvas.Top="142" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-
-
-
-    </Canvas>
+        Title="MainWindow" Background="#FFFFF500" ResizeMode="NoResize" Cursor="Hand" Width="976.4" Height="620.4">
+    <Grid>
+        <Canvas x:Name="GameCanvas" Focusable="True" Background="#FF0042AD" Height="580" Width="960" VerticalAlignment="Center"/>
+        <TextBox x:Name="ConsoleOutput" TextWrapping="Wrap" IsReadOnly="True" 
+                 VerticalScrollBarVisibility="Auto" 
+                 Cursor="" 
+                 FontSize="14" 
+                 FontFamily="Courier New"
+                 SelectionBrush="{x:Null}"
+                 SelectionTextBrush="{x:Null}"
+                 Foreground="White"
+                 Background="#7F000000" 
+                 RenderTransformOrigin="0.5,0.5"
+                 Focusable="False"
+                 Height="200"
+                 Width="800"
+                 VerticalAlignment="Top" BorderThickness="0,0,0,0" BorderBrush="{x:Null}" Margin="80,0,80,0" Visibility="Collapsed">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0"/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <Button x:Name="ConsoleButton" Margin="0,5,80,0" Focusable="False" Click="ConsoleButton_OnClick" Height="40" Width="40" Content="&lt;/&gt;" HorizontalAlignment="Right" VerticalAlignment="Top" BorderBrush="{x:Null}" FontSize="16" FontWeight="Bold" Foreground="Black">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Yellow" Offset="1"/>
+                    <GradientStop Color="Red"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="ExitButton" Focusable="False" Height="40" Width="40" Content="X" HorizontalAlignment="Right" VerticalAlignment="Top" BorderBrush="{x:Null}" FontSize="22" FontWeight="Bold" Foreground="White" Margin="0,00,0,0" Click="ExitButton_Click" Background="{x:Null}"/>
+    </Grid>
 </Window>
