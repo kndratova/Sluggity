@@ -1,0 +1,21 @@
+{
+  "SceneName": "Scene_1",
+  "GameObjectsData": [
+    {
+      "ObjectType": "Obstacle",
+      "Position": [ 0, 0 ],
+      "Size": [ 960, 50 ],
+      "Color": [ 0, 35, 90 ]
+    },
+    {
+      "ObjectType": "Obstacle",
+      "Position": [ 0, 100 ],
+      "Size": [ 960, 50 ],
+      "Color": [ 0, 35, 90 ]
+    },
+    {
+      "ObjectType": "Player",
+      "Position": [ 480, 50 ]
+    }
+  ]
+}
