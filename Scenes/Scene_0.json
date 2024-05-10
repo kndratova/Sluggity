@@ -34,13 +34,13 @@
     {
       "ObjectType": "Obstacle",
       "Position": [ 300, 200 ],
-      "Size": [ 50, 200 ],
+      "Size": [ 50, 247 ],
       "Color": [ 0, 35, 90 ]
     },
     {
       "ObjectType": "Obstacle",
-      "Position": [ 300, 400 ],
-      "Size": [ 300, 50 ],
+      "Position": [ 302, 400 ],
+      "Size": [ 248, 50 ],
       "Color": [ 0, 35, 90 ]
     },
     {
@@ -51,7 +51,9 @@
     },
     {
       "ObjectType": "Player",
-      "Position": [ 480, 100 ]
+      "Position": [ 480, 147 ],
+      "Size": [ 120, 50 ],
+    //  "Color": [ 255, 255, 255 ]
     }
   ]
 }

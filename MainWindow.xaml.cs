@@ -11,7 +11,7 @@ namespace Sluggity
         {
             InitializeComponent();
             Console.SetOut(new ConsoleOutputWriter(ConsoleOutput));
-            Game.Construct(GameCanvas);
+            GameCore.Construct(GameCanvas);
         }
 
         private class ConsoleOutputWriter(TextBox output) : System.IO.TextWriter

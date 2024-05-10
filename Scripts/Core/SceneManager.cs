@@ -57,9 +57,18 @@ namespace Sluggity.Core
                 {
                     GameObject gameObject = gameObjectData.ObjectType switch
                     {
-                        "Player" => new Player { X = gameObjectData.Position[0], Y = gameObjectData.Position[1] },
+                        "Player" => new Player
+                        {
+                            SelfCollider = { },
+                            X = gameObjectData.Position[0],
+                            Y = gameObjectData.Position[1],
+                            Width = gameObjectData.Size[0],
+                            Height = gameObjectData.Size[1],
+                            ColorData = gameObjectData.Color
+                        },
                         "Obstacle" => new Obstacle
                         {
+                            SelfCollider = {  },
                             X = gameObjectData.Position[0],
                             Y = gameObjectData.Position[1],
                             Width = gameObjectData.Size[0],

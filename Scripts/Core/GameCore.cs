@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace Sluggity.Core
 {
-    internal static class Game
+    internal static class GameCore
     {
         private static bool _spacePressedLastFrame = false;
 
@@ -28,7 +28,7 @@ namespace Sluggity.Core
             GameCanvas = gameCanvas;
             GameCanvas.Focus();
             SceneManager.Construct(gameCanvas);
-        }
+        }     
 
         private static void OnUpdate(object sender, EventArgs e)
         {
@@ -44,9 +44,10 @@ namespace Sluggity.Core
             }
         }
 
+        // TODO: redo with window.keydown and make input handler class
         private static void HandleInput()
         {
-            var spacePressedThisFrame = Keyboard.IsKeyDown(Key.Space);
+            var spacePressedThisFrame = Keyboard.IsKeyDown(Key.Enter);
 
             if (spacePressedThisFrame && !_spacePressedLastFrame)
             {
