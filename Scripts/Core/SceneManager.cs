@@ -68,12 +68,20 @@ namespace Sluggity.Core
                         },
                         "Obstacle" => new Obstacle
                         {
-                            SelfCollider = {  },
+                            SelfCollider = { },
                             X = gameObjectData.Position[0],
                             Y = gameObjectData.Position[1],
                             Width = gameObjectData.Size[0],
                             Height = gameObjectData.Size[1],
-                            ColorData= gameObjectData.Color
+                            ColorData = gameObjectData.Color
+                        },
+                        "Decoration" => new Decoration
+                        {
+                            X = gameObjectData.Position[0],
+                            Y = gameObjectData.Position[1],
+                            Width = gameObjectData.Size[0],
+                            Height = gameObjectData.Size[1],
+                            ColorData = gameObjectData.Color
                         },
                         _ => null
                     };

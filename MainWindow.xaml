@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Background="#FFFFF500" ResizeMode="NoResize" Cursor="Hand" Width="976.4" Height="620.4">
     <Grid>
-        <Canvas x:Name="GameCanvas" Focusable="True" Background="#FF0042AD" Height="580" Width="960" VerticalAlignment="Center"/>
+        <Canvas x:Name="GameCanvas" Focusable="True" Background="#FF0042AD" Height="1000" Width="960" VerticalAlignment="Bottom"/>
         <TextBox x:Name="ConsoleOutput" TextWrapping="Wrap" IsReadOnly="True" 
                  VerticalScrollBarVisibility="Auto" 
                  Cursor="" 

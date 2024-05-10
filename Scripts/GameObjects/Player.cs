@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Numerics;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 using Sluggity.Core;
 using Sluggity.Scripts.GameObjects;
 
@@ -128,13 +132,16 @@ namespace Sluggity.GameObjects
                 _jumpTemp -= 2;
             }
         }
+
+        
         public override void Update()
         {
             playerSprite.Update();
             velocity = (0, 0);
             ApplyGravity();
-            Walk();  
+            Walk();
             Jump();
+            GameCore.GameCanvas.RenderTransform = new TranslateTransform(GameCore.GameCanvas.RenderTransformOrigin.X, Y - 200);
 
             var moveDistanceY = 0f;
             

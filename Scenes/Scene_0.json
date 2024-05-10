@@ -2,58 +2,58 @@
   "SceneName": "Scene_0",
   "GameObjectsData": [
     {
+      "ObjectType": "Decoration",
+      "Position": [ 0, -660 ],
+      "Size": [ 960, 2000 ],
+      "Color": [ 0, 0, 90 ]
+    },
+    {
       "ObjectType": "Obstacle",
       "Position": [ 0, 0 ],
       "Size": [ 50, 580 ],
-      "Color": [ 0, 35, 90 ]
+      "Color": [ 0, 0, 150 ]
     },
     {
       "ObjectType": "Obstacle",
       "Position": [ 910, 0 ],
       "Size": [ 50, 580 ],
-      "Color": [ 0, 35, 90 ]
+      "Color": [ 0, 0, 150 ]
     },
     {
       "ObjectType": "Obstacle",
       "Position": [ 0, 0 ],
       "Size": [ 960, 50 ],
-      "Color": [ 0, 35, 90 ]
+      "Color": [ 0, 0, 150 ]
     },
     {
       "ObjectType": "Obstacle",
       "Position": [ 0, 200 ],
       "Size": [ 300, 50 ],
-      "Color": [ 0, 35, 90 ]
+      "Color": [ 0, 0, 150 ]
     },
     {
       "ObjectType": "Obstacle",
       "Position": [ 660, 200 ],
       "Size": [ 300, 50 ],
-      "Color": [ 0, 35, 90 ]
+      "Color": [ 0, 0, 150 ]
     },
     {
       "ObjectType": "Obstacle",
       "Position": [ 300, 200 ],
       "Size": [ 50, 247 ],
-      "Color": [ 0, 35, 90 ]
+      "Color": [ 0, 0, 150 ]
     },
     {
       "ObjectType": "Obstacle",
       "Position": [ 302, 400 ],
       "Size": [ 248, 50 ],
-      "Color": [ 0, 35, 90 ]
-    },
-    {
-      "ObjectType": "Obstacle",
-      "Position": [ 0, 600 ],
-      "Size": [ 960, 50 ],
-      "Color": [ 0, 35, 90 ]
+      "Color": [ 0, 0, 150 ]
     },
     {
       "ObjectType": "Player",
       "Position": [ 480, 147 ],
-      "Size": [ 120, 50 ],
-    //  "Color": [ 255, 255, 255 ]
+      "Size": [ 120, 50 ]
+      //  "Color": [ 255, 255, 255 ]
     }
   ]
 }
