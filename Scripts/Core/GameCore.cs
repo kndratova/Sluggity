@@ -1,14 +1,34 @@
 ﻿using System;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Sluggity.GameObjects;
+using System.Collections.Generic;
 
 namespace Sluggity.Core
 {
-    internal static class GameCore
+    internal sealed class GameCore
     {
-        private static bool _spacePressedLastFrame = false;
+        private static GameCore _instance;
+
+        private GameCore() { }
+
+        public static GameCore Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new GameCore();
+                }
+                return _instance;
+            }
+        }
 
         public static Canvas GameCanvas { get; private set; }
+
+        private static bool _spacePressedLastFrame = false;
+        private static bool _escapePressedLastFrame = false;
+        private static bool _isPaused = false;
 
         public static event EventHandler Update
         {
@@ -16,45 +36,58 @@ namespace Sluggity.Core
             remove => TimerManager.Update -= value;
         }
 
-        public static void Construct(Canvas gameCanvas)
+        public void Construct(Canvas gameCanvas)
         {
             InitializeGame(gameCanvas);
             Update += OnUpdate;
         }
 
-        private static void InitializeGame(Canvas gameCanvas)
+        private void InitializeGame(Canvas gameCanvas)
         {
             TimerManager.StartTimer();
             GameCanvas = gameCanvas;
             GameCanvas.Focus();
-            SceneManager.Construct(gameCanvas);
-        }     
+            SceneManager.Construct(GameCanvas);
+        }
 
         private static void OnUpdate(object sender, EventArgs e)
         {
-            UpdateGameObjects();
             HandleInput();
+            if (!_isPaused)
+            {
+                UpdateGameObjects();
+            }
         }
 
         private static void UpdateGameObjects()
         {
-            foreach (var gameObject in SceneManager.SceneGameObjects)
+            var _currentSceneGO = new List<GameObject>(SceneManager.SceneGameObjects);
+            foreach (var gameObject in _currentSceneGO)
             {
                 gameObject.Update();
             }
         }
 
-        // TODO: redo with window.keydown and make input handler class
         private static void HandleInput()
         {
-            var spacePressedThisFrame = Keyboard.IsKeyDown(Key.Enter);
 
-            if (spacePressedThisFrame && !_spacePressedLastFrame)
+            if (Keyboard.IsKeyDown(Key.Escape) && !_escapePressedLastFrame)
             {
-                SceneManager.ReloadCurrentScene();
+                TogglePause();
             }
+            _escapePressedLastFrame = Keyboard.IsKeyDown(Key.Escape);
+        }
 
-            _spacePressedLastFrame = spacePressedThisFrame;
+        private static void TogglePause()
+        {
+            _isPaused = !_isPaused;
+            if (_isPaused)
+            {
+                Console.WriteLine("Game is paused.");
+            } else
+            {
+                Console.WriteLine("Game is resumed.");
+            }
         }
     }
 }

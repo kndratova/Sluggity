@@ -1,6 +1,6 @@
 ﻿namespace Sluggity.GameObjects;
 
-internal enum DirectionVector
+public enum DirectionVector
 {
     None,
     Left,

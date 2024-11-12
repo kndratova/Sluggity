@@ -10,16 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Sluggity
+namespace Sluggity.Pages
 {
-    public partial class MainWindow : Window
+    public partial class Level2 : Page
     {
-        public MainWindow()
+        public Level2()
         {
             InitializeComponent();
-            MainFrame.Navigate(new Pages.MainMenu());
         }
     }
 }

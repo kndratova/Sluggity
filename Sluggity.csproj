@@ -10,12 +10,11 @@
     <StartupObject>Sluggity.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Scenes\Scene_0.json" />
-    <None Remove="Scenes\Scene_1.json" />
     <None Remove="Sprites\background.png" />
     <None Remove="Sprites\crub_left.png" />
     <None Remove="Sprites\crub_right.png" />
     <None Remove="Sprites\finish.png" />
+    <None Remove="Sprites\finish_1.png" />
     <None Remove="Sprites\mike_jump_left.png" />
     <None Remove="Sprites\mike_jump_right.png" />
     <None Remove="Sprites\mike_knife_left.png" />
@@ -29,11 +28,9 @@
     <None Remove="Sprites\octopus_up_left.png" />
     <None Remove="Sprites\octopus_up_right.png" />
     <None Remove="Sprites\pearl.png" />
+    <None Remove="Sprites\pearl_1.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scenes\Scene_1.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Sprites\background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -43,7 +40,7 @@
     <Content Include="Sprites\crub_right.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sprites\finish.png">
+    <Content Include="Sprites\finish_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Sprites\mike_jump_left.png">
@@ -82,7 +79,7 @@
     <Content Include="Sprites\octopus_up_right.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sprites\pearl.png">
+    <Content Include="Sprites\pearl_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -92,8 +89,8 @@
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scenes\Scene_0.json">
+    <None Update="Scenes\Scene_0.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
   </ItemGroup>
 </Project>

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Sluggity.Core;
 
@@ -9,7 +7,7 @@ namespace Sluggity.GameObjects
 {
     public class GameObject((float, float) position)
     {
-        protected readonly Rectangle ObjectRepresentation = new();
+        public readonly Rectangle ObjectRepresentation = new();
         private readonly SolidColorBrush _objectColorBrush = new();
 
         public byte[] ColorData { get; set; }

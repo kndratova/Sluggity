@@ -1,0 +1,55 @@
+﻿<Page x:Class="Sluggity.Pages.LevelSelectionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Sluggity.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="620.4" d:DesignWidth="976.4"
+      Title="LevelSelectionPage">
+
+    <Grid Background="#FF3C3DAD">
+        <Label Height="155" Content="Level Selection" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" 
+               Foreground="#FF65D8FF" FontSize="120" FontFamily="Cabin Sketch" FontWeight="Bold"
+               HorizontalAlignment="Center" VerticalAlignment="Top" />
+
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 150, 0, 0">
+            <Grid.RowDefinitions>
+
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+
+            <Button x:Name="Level1Button" Height="80" Width="250" 
+                    Content="Level 1" Background="#FF65D8FF" FontSize="48" FontFamily="Exotc350 Bd BT" Foreground="White" 
+                    BorderBrush="{x:Null}" Click="Level1Button_Click" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center"/>
+
+            <Button x:Name="Level2Button" Height="80" Width="250" 
+                    Content="Level 2" Background="#FF65D8FF" FontSize="48" FontFamily="Exotc350 Bd BT" Foreground="White" 
+                    BorderBrush="{x:Null}" Click="Level2Button_Click" IsEnabled="False" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"/>
+
+            <Button x:Name="Level3Button" Height="80" Width="250" 
+                    Content="Level 3" Background="#FF65D8FF" FontSize="48" FontFamily="Exotc350 Bd BT" Foreground="White" 
+                    BorderBrush="{x:Null}" Click="Level3Button_Click" IsEnabled="False" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center"/>
+
+
+            <TextBlock x:Name="Level1Stars" Text="0/3" Foreground="White" FontSize="32" FontFamily="Exotc350 Bd BT" 
+                       Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center"/>
+
+            <TextBlock x:Name="Level2Stars" Text="0/3" Foreground="White" FontSize="32" FontFamily="Exotc350 Bd BT" 
+                       Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"/>
+
+
+            <TextBlock x:Name="Level3Stars" Text="0/3" Foreground="White" FontSize="32" FontFamily="Exotc350 Bd BT" 
+                       Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center"/>
+        </Grid>
+    </Grid>
+</Page>

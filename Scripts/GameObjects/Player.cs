@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Numerics;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Media.Media3D;
 using Sluggity.Core;
-using Sluggity.Scripts.GameObjects;
+using Sluggity.GameObjects.Bonuses;
 
 namespace Sluggity.GameObjects
 {
@@ -111,6 +106,7 @@ namespace Sluggity.GameObjects
         private bool _isJumping = false;
         private float _jumpVelocity = 45f;
         private float _jumpTemp;
+        private bool _jumpPressedLastFrame;
 
         private void Jump()
         {
@@ -121,11 +117,12 @@ namespace Sluggity.GameObjects
             }
 
 
-            if ((_isOnGround || _isJumping && _playerState == PlayerState.WalkingLegs) && Keyboard.IsKeyDown(Key.Space))
+            if ((_isOnGround || _isJumping && _playerState == PlayerState.WalkingLegs) && Keyboard.IsKeyDown(Key.Up) && !_jumpPressedLastFrame)
             {
                 _jumpTemp = _jumpVelocity;
                 _isJumping = true;
             }
+            _jumpPressedLastFrame = Keyboard.IsKeyDown(Key.Up);
             if (_isJumping)
             {
                 velocity.Item2 += _jumpTemp;
@@ -206,16 +203,34 @@ namespace Sluggity.GameObjects
                 _directionsCollision[direction] = false;
             }
 
-            foreach (var collisionDirection in from gameObject in SceneManager.SceneGameObjects
-                     where gameObject != this
-                     select SelfCollider.CollidesWith(gameObject)
-                     into collisionDirection
-                     where collisionDirection is not DirectionVector.None
-                     select collisionDirection)
+            var _currentSceneGO = new List<GameObject>(SceneManager.SceneGameObjects);
+            foreach (var gameObject in _currentSceneGO)
             {
-                //Console.Write(collisionDirection);
-                _directionsCollision[collisionDirection] = true;
+                if (gameObject is Pearl pearl)
+                {
+                    if (SelfCollider.CollidesWith(pearl) != DirectionVector.None)
+                    {
+                        CollectBonus(pearl);
+                    }
+                } else if (gameObject != this)
+                {
+                    var collisionDirection = SelfCollider.CollidesWith(gameObject);
+                    if (collisionDirection != DirectionVector.None)
+                    {
+                        _directionsCollision[collisionDirection] = true;
+                    }
+                }
             }
+        }
+
+        public void InteractWithEnemy(Enemies.Enemy enemy)
+        {
+            SceneManager.ReloadCurrentScene();
+        }
+
+        internal void CollectBonus(IBonus bonus)
+        {
+            bonus.CollectBonus();
         }
     }
 

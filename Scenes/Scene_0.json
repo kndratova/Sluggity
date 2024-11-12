@@ -49,6 +49,56 @@
       "Size": [ 248, 50 ],
       "Color": [ 0, 0, 150 ]
     },
+
+    {
+      "ObjectType": "Crub",
+      "Position": [ 150, 250 ],
+      "Size": [ 120, 50 ]
+      //"Color": [ 0, 0, 150 ]
+    },
+
+    {
+      "ObjectType": "Octopus",
+      "Position": [ 800, 300 ],
+      "Size": [ 120, 120 ]
+      //"Color": [ 0, 0, 150 ]
+    },
+
+    {
+      "ObjectType": "SceneExit",
+      "Position": [ 800, 600 ],
+      "Size": [ 120, 120 ],
+      "Color": [ 255, 255, 0 ]
+    },
+
+    {
+      "ObjectType": "Pearl",
+      "Position": [ 600, 600 ],
+      "Size": [ 50, 50 ],
+      "Color": [ 0, 255, 0 ]
+    },
+
+    {
+      "ObjectType": "Pearl",
+      "Position": [ 200, 500 ],
+      "Size": [ 50, 50 ],
+      "Color": [ 0, 255, 0 ]
+    },
+
+    {
+      "ObjectType": "Pearl",
+      "Position": [ 100, 100 ],
+      "Size": [ 50, 50 ],
+      "Color": [ 0, 255, 0 ]
+    },
+
+    {
+      "ObjectType": "Obstacle",
+      "Position": [ 700, 500 ],
+      "Size": [ 200, 50 ],
+      "Color": [ 0, 0, 150 ]
+    },
+
     {
       "ObjectType": "Player",
       "Position": [ 480, 147 ],

@@ -2,7 +2,7 @@
 
 namespace Sluggity.GameObjects
 {
-    internal interface ICollidableObject<out T> where T : GameObject
+    public interface ICollidableObject<out T> where T : GameObject
     {
         private T Self => this as T;
         public ICollidableObject<T> SelfCollider { get; }

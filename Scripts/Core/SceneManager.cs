@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using Sluggity.GameObjects;
-using System.Linq;
 using System.Windows.Controls;
+using Sluggity.GameObjects.Bonuses;
+using Sluggity.GameObjects.Enemies;
+using Sluggity.Pages;
+using System.Windows;
 
 namespace Sluggity.Core
 {
@@ -39,13 +42,13 @@ namespace Sluggity.Core
         public static void Construct(Canvas gameCanvas)
         {
             _gameCanvas = gameCanvas;
-            LoadNextScene();
         }
 
         public static void ChangeScene(string sceneName)
         {
             _gameCanvas.Children.Clear();
             var jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ScenesDirectory, $"{sceneName}.json");
+            Console.WriteLine( jsonFilePath );
 
             if (File.Exists(jsonFilePath))
             {
@@ -66,7 +69,34 @@ namespace Sluggity.Core
                             Height = gameObjectData.Size[1],
                             ColorData = gameObjectData.Color
                         },
-                        "Obstacle" => new Obstacle
+                        "Crub" => new Crub((gameObjectData.Position[0], gameObjectData.Position[1]))
+                        {
+                            SelfCollider = { },
+                            X = gameObjectData.Position[0],
+                            Y = gameObjectData.Position[1],
+                            Width = gameObjectData.Size[0],
+                            Height = gameObjectData.Size[1],
+                            ColorData = gameObjectData.Color
+                        },
+                        "Octopus" => new Octopus((gameObjectData.Position[0], gameObjectData.Position[1]))
+                        {
+                            SelfCollider = { },
+                            X = gameObjectData.Position[0],
+                            Y = gameObjectData.Position[1],
+                            Width = gameObjectData.Size[0],
+                            Height = gameObjectData.Size[1],
+                            ColorData = gameObjectData.Color
+                        },
+                        "SceneExit" => new SceneExit((gameObjectData.Position[0], gameObjectData.Position[1]))
+                        {
+                            SelfCollider = { },
+                            X = gameObjectData.Position[0],
+                            Y = gameObjectData.Position[1],
+                            Width = gameObjectData.Size[0],
+                            Height = gameObjectData.Size[1],
+                            ColorData = gameObjectData.Color
+                        },
+                        "Obstacle" => new Obstacle((gameObjectData.Position[0], gameObjectData.Position[1]))
                         {
                             SelfCollider = { },
                             X = gameObjectData.Position[0],
@@ -76,6 +106,14 @@ namespace Sluggity.Core
                             ColorData = gameObjectData.Color
                         },
                         "Decoration" => new Decoration
+                        {
+                            X = gameObjectData.Position[0],
+                            Y = gameObjectData.Position[1],
+                            Width = gameObjectData.Size[0],
+                            Height = gameObjectData.Size[1],
+                            ColorData = gameObjectData.Color
+                        },
+                        "Pearl" => new Pearl()
                         {
                             X = gameObjectData.Position[0],
                             Y = gameObjectData.Position[1],
@@ -94,11 +132,11 @@ namespace Sluggity.Core
             }
             else
             {
-                Console.WriteLine("JSON file not found: " + jsonFilePath);
+                Console.Write("JSON file not found: " + jsonFilePath);
             }
 
             SceneGameObjects = _currentScene.GameObjects;
-            Console.WriteLine(SceneGameObjects.Count);
+            Console.Write(SceneGameObjects.Count);
         }
 
         public static void LoadNextScene()
@@ -112,6 +150,16 @@ namespace Sluggity.Core
         public static void ReloadCurrentScene()
         {
             ChangeScene(_currentScene.SceneName);
+        }
+
+        public static void LoadLevelSelection()
+        {
+            Frame mainFrame = Application.Current.MainWindow?.FindName("MainFrame") as Frame;
+            if (mainFrame != null)
+            {
+                _gameCanvas.Children.Clear();
+                mainFrame.Navigate(new LevelSelectionPage());
+            }
         }
     }
 }

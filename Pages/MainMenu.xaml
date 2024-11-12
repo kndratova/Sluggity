@@ -1,0 +1,24 @@
+﻿<Page x:Class="Sluggity.Pages.MainMenu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Sluggity.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="620.4" d:DesignWidth="976.4"
+      Title="MainMenu">
+
+    <Grid Background="#FF3C3DAD">
+        <Label Height="155" Content="Sluggity" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" 
+               Foreground="#FF65D8FF" FontSize="120" FontFamily="Cabin Sketch" FontWeight="Bold"
+               HorizontalAlignment="Center" VerticalAlignment="Top" />
+
+        <Button x:Name="PlayButtonMainMenu" Height="76" Width="342" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                Content="Play!" Background="#FF65D8FF" FontSize="48" FontFamily="Exotc350 Bd BT" Foreground="White" 
+                BorderBrush="{x:Null}" Click="PlayButtonMainMenu_Click" Canvas.Left="308" Canvas.Top="236"/>
+
+        <Button x:Name="ExitButtonMainMenu" Height="76" Width="342" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                Margin="0,376,0,0" Content="Exit" Background="#FF65D8FF" FontSize="48" FontFamily="Exotc350 Bd BT" 
+                Foreground="White" BorderBrush="{x:Null}" Click="ExitButtonMainMenu_Click" Canvas.Left="308" Canvas.Top="330"/>
+    </Grid>
+</Page>
