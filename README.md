@@ -60,11 +60,3 @@ Add a `.json` file to `Scenes`. Coordinates start in the bottom left corner, y g
 ```
 
 An octopus has to be placed right next to a wall, it will crawl along it.
-
-## Running
-
-```
-dotnet run
-```
-
-Or open `Sluggity.sln` in Visual Studio / Rider.
