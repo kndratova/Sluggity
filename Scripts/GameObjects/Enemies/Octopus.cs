@@ -1,33 +1,46 @@
-﻿using System;
-using System.Windows.Media.Imaging;
+using Sluggity.Core;
 
 namespace Sluggity.GameObjects.Enemies
 {
     public class Octopus : Enemy
     {
-        private readonly BitmapImage _octopusSpriteUp = new(new Uri("pack://application:,,,/Sprites/octopus_up_right.png"));
-        private readonly BitmapImage _octopusSpriteDown = new(new Uri("pack://application:,,,/Sprites/octopus_down_right.png"));
+        private const double k_speed = 110;
+        private const double k_probe = 4;
 
-        public Octopus((float, float) position) : base(position)
+        private bool m_movingUp = true;
+        private bool m_wallOnLeft;
+        private bool m_wallChecked;
+
+        public Octopus(double x, double y) : base(x, y, 100, 140, SpriteLoader.Get("octopus_up_right"))
         {
-            _enemySpriteLeft = _octopusSpriteUp;
-            _enemySpriteRight = _octopusSpriteDown;
-            EnemyMoveSpeed = 2;
-            _enemyMoveDirectionVector = DirectionVector.Up;
-            _enemySprite = new ObjectSprite((X, Y), this)
+        }
+
+        public override void Update(Scene scene, double deltaTime)
+        {
+            if (!m_wallChecked)
             {
-                ObjectImage = GetBitmapImage()
-            };
-        }
+                m_wallOnLeft = scene.IsSolidAt(X - k_probe, CenterY);
+                m_wallChecked = true;
+            }
 
-        protected override BitmapImage GetBitmapImage()
-        {
-            return _enemyMoveDirectionVector == DirectionVector.Up ? _enemySpriteLeft : _enemySpriteRight;
-        }
+            double wallX = m_wallOnLeft ? X - k_probe : Right + k_probe;
+            double frontY = m_movingUp ? Top : Y;
+            if (!scene.IsSolidAt(wallX, frontY))
+            {
+                m_movingUp = !m_movingUp;
+            }
 
-        protected override void Walk()
-        {
-            _velocity.Item2 = _enemyMoveDirectionVector == DirectionVector.Up ? EnemyMoveSpeed : -EnemyMoveSpeed;
+            VelocityY = m_movingUp ? k_speed : -k_speed;
+            Move(scene, deltaTime);
+
+            if (HitFloorOrCeiling)
+            {
+                m_movingUp = !m_movingUp;
+            }
+
+            string vertical = m_movingUp ? "up" : "down";
+            string side = m_wallOnLeft ? "right" : "left";
+            SetSprite(SpriteLoader.Get($"octopus_{vertical}_{side}"));
         }
     }
 }

@@ -1,0 +1,35 @@
+{
+  "SceneName": "The Deep",
+  "Size": [ 2000, 2600 ],
+  "GameObjectsData": [
+    { "ObjectType": "Obstacle", "Position": [ -60, 0 ], "Size": [ 60, 2900 ] },
+    { "ObjectType": "Obstacle", "Position": [ 2000, 0 ], "Size": [ 60, 2900 ] },
+
+    { "ObjectType": "Obstacle", "Position": [ 0, 0 ], "Size": [ 2000, 60 ] },
+    { "ObjectType": "Spikes", "Position": [ 600, 60 ], "Size": [ 1400, 0 ] },
+    { "ObjectType": "Legs", "Position": [ 250, 90 ] },
+
+    { "ObjectType": "Obstacle", "Position": [ 400, 330 ], "Size": [ 200, 40 ] },
+    { "ObjectType": "Pearl", "Position": [ 460, 400 ] },
+
+    { "ObjectType": "MovingObstacle", "Position": [ 700, 450 ], "Size": [ 180, 40 ], "Move": [ 0, 400 ] },
+    { "ObjectType": "Pearl", "Position": [ 760, 920 ] },
+
+    { "ObjectType": "Obstacle", "Position": [ 1000, 900 ], "Size": [ 220, 40 ] },
+    { "ObjectType": "Knife", "Position": [ 1060, 970 ] },
+    { "ObjectType": "Obstacle", "Position": [ 1300, 600 ], "Size": [ 60, 900 ] },
+    { "ObjectType": "Octopus", "Position": [ 1200, 1100 ] },
+
+    { "ObjectType": "Obstacle", "Position": [ 600, 1220 ], "Size": [ 200, 40 ] },
+    { "ObjectType": "Obstacle", "Position": [ 150, 1500 ], "Size": [ 250, 40 ] },
+    { "ObjectType": "Pearl", "Position": [ 230, 1580 ] },
+    { "ObjectType": "Obstacle", "Position": [ 700, 1800 ], "Size": [ 250, 40 ] },
+
+    { "ObjectType": "Obstacle", "Position": [ 1150, 2100 ], "Size": [ 850, 40 ] },
+    { "ObjectType": "Crab", "Position": [ 1300, 2140 ] },
+    { "ObjectType": "Obstacle", "Position": [ 1650, 2140 ], "Size": [ 350, 100 ] },
+    { "ObjectType": "SceneExit", "Position": [ 1800, 2240 ] },
+
+    { "ObjectType": "Player", "Position": [ 100, 60 ] }
+  ]
+}

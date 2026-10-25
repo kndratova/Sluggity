@@ -1,30 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using Sluggity.Core;
 
 namespace Sluggity.GameObjects.Bonuses
 {
-    internal class Pearl : GameObject, ICollidableObject<Pearl>, IBonus
+    public class Pearl(double x, double y) : ObjectSprite(x, y, 40, 39, SpriteLoader.Get("pearl"))
     {
-        public ICollidableObject<Pearl> SelfCollider => this;
-        public bool IsColliderEnabled { get; set; } = true;
-        public ObjectSprite Sprite { get; }
+        private readonly double m_startY = y;
+        private double m_time = x;
 
-        public Pearl() : base((0, 0))
+        public override void Update(Scene scene, double deltaTime)
         {
-            Sprite = new ObjectSprite(position: (X, Y), this)
-            {
-                ObjectImage = new(new Uri("pack://application:,,,/Sprites/pearl_1.png"))
-            };
-            GameCore.GameCanvas.Children.Add(Sprite.ObjectRepresentation);
+            m_time += deltaTime;
+            Y = m_startY + Math.Sin(m_time * 3) * 6;
         }
 
-        public void CollectBonus()
+        public override void OnPlayerTouch(Player player, Scene scene)
         {
-            GameCore.GameCanvas.Children.Remove(ObjectRepresentation);
-            GameCore.GameCanvas.Children.Remove(Sprite.ObjectRepresentation);
-            SceneManager.SceneGameObjects.Remove(this);
-        } 
+            Destroy();
+            scene.CollectPearl();
+        }
     }
 }

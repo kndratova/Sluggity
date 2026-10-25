@@ -1,0 +1,35 @@
+{
+  "SceneName": "Crab Cove",
+  "Size": [ 3300, 1000 ],
+  "GameObjectsData": [
+    { "ObjectType": "Obstacle", "Position": [ -60, 0 ], "Size": [ 60, 1300 ] },
+    { "ObjectType": "Obstacle", "Position": [ 3300, 0 ], "Size": [ 60, 1300 ] },
+    
+    { "ObjectType": "Obstacle", "Position": [ 0, 0 ], "Size": [ 1000, 60 ] },
+    { "ObjectType": "Knife", "Position": [ 300, 90 ] },
+    { "ObjectType": "Crab", "Position": [ 550, 60 ] },
+    { "ObjectType": "Crab", "Position": [ 800, 60 ] },
+    { "ObjectType": "Obstacle", "Position": [ 700, 190 ], "Size": [ 160, 40 ] },
+    { "ObjectType": "Pearl", "Position": [ 760, 270 ] },
+    
+    { "ObjectType": "Obstacle", "Position": [ 1000, 0 ], "Size": [ 80, 330 ] },
+    { "ObjectType": "Octopus", "Position": [ 900, 60 ] },
+
+    { "ObjectType": "Obstacle", "Position": [ 1080, 0 ], "Size": [ 800, 60 ] },
+    { "ObjectType": "Crab", "Position": [ 1600, 60 ] },
+    
+    { "ObjectType": "Obstacle", "Position": [ 1300, 180 ], "Size": [ 180, 40 ] },
+    { "ObjectType": "Pearl", "Position": [ 1370, 250 ] },
+    { "ObjectType": "Obstacle", "Position": [ 1540, 330 ], "Size": [ 160, 40 ] },
+    { "ObjectType": "Obstacle", "Position": [ 1880, 0 ], "Size": [ 80, 500 ] },
+    { "ObjectType": "Pearl", "Position": [ 1900, 540 ] },
+    { "ObjectType": "Octopus", "Position": [ 1960, 60 ] },
+    
+    { "ObjectType": "Obstacle", "Position": [ 1960, 0 ], "Size": [ 940, 60 ] },
+    { "ObjectType": "Crab", "Position": [ 2400, 60 ] },
+    { "ObjectType": "Obstacle", "Position": [ 2900, 0 ], "Size": [ 400, 200 ] },
+    { "ObjectType": "SceneExit", "Position": [ 3150, 200 ] },
+
+    { "ObjectType": "Player", "Position": [ 100, 60 ] }
+  ]
+}

@@ -1,46 +1,28 @@
-﻿using System;
-using System.Windows.Controls;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Sluggity.Core;
 
 namespace Sluggity.GameObjects
 {
-    public class Obstacle : GameObject, ICollidableObject<Obstacle>
+    public class Obstacle : GameObject
     {
-        private Rectangle _colliderVisual;
+        private static readonly Brush s_fillBrush = new SolidColorBrush(Color.FromRgb(0, 2, 44));
 
-        public Obstacle((float, float) position) : base(position)
+        private readonly Rectangle m_rectangle;
+
+        public Obstacle(double x, double y, double width, double height) : base(x, y, width, height)
         {
-            IsColliderEnabled = true;
-
-            _colliderVisual = new Rectangle
+            m_rectangle = new Rectangle
             {
-                Stroke = Brushes.Blue,
-                StrokeThickness = 2,
-                Fill = Brushes.Transparent
+                Width = width,
+                Height = height,
+                Fill = s_fillBrush,
             };
-            GameCore.GameCanvas.Children.Add(_colliderVisual);
         }
 
-        public ICollidableObject<Obstacle> SelfCollider => this;
-        public bool IsColliderEnabled { get; set; }
+        public double DeltaX { get; protected set; }
+        public double DeltaY { get; protected set; }
 
-        public override void Update()
-        {
-            base.Update();
-            UpdateColliderVisual();
-        }
-
-        private void UpdateColliderVisual()
-        {
-            if (_colliderVisual != null)
-            {
-                _colliderVisual.Width = Width;
-                _colliderVisual.Height = Height;
-                Canvas.SetLeft(_colliderVisual, X);
-                Canvas.SetBottom(_colliderVisual, Y);
-            }
-        }
+        public override FrameworkElement Visual => m_rectangle;
     }
 }

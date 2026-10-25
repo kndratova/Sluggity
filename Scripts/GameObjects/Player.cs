@@ -1,237 +1,140 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using System.Windows.Controls;
 using Sluggity.Core;
-using Sluggity.GameObjects.Bonuses;
 
 namespace Sluggity.GameObjects
 {
-    internal class Player : GameObject, ICollidableObject<Player>
+    public class Player : PhysicsObject
     {
-        #region Additional
-        internal enum PlayerState
+        private const double k_moveSpeed = 330;
+        private const double k_jumpSpeed = 980;
+        private const double k_jumpCutSpeed = 350;
+        private const double k_bounceSpeed = 700;
+        private const double k_coyoteTime = 0.1;
+        private const double k_jumpBufferTime = 0.12;
+
+        private const double k_bodyWidth = 120;
+        private const double k_bodyHeight = 44;
+        private const double k_heightWithLegs = 104;
+        private const double k_spriteBodyWidth = 139;
+
+        private double m_coyoteTimer;
+        private double m_jumpBufferTimer;
+        private bool m_usedDoubleJump;
+
+        public Player(double x, double y) : base(x, y, k_bodyWidth, k_bodyHeight, SpriteLoader.Get("mike_right"))
         {
-            WalkingNormal,
-            WalkingKnife,
-            WalkingLegs,
-            WalkingCombo,
         }
 
-        private readonly Dictionary<PlayerState, BitmapImage> _playerStateSpritesLeft = new()
-        {
-            { PlayerState.WalkingNormal, new BitmapImage(new Uri("pack://application:,,,/Sprites/mike_left.png")) },
-            { PlayerState.WalkingKnife, new BitmapImage(new Uri("pack://application:,,,/Sprites/mike_knife_left.png")) },
-            { PlayerState.WalkingLegs, new BitmapImage(new Uri("pack://application:,,,/Sprites/mike_jump_left.png")) },
-            { PlayerState.WalkingCombo, new BitmapImage(new Uri("pack://application:,,,/Sprites/mike_ulta_left.png")) },
-        };
+        public bool FacingRight { get; private set; } = true;
+        public bool HasKnife { get; private set; }
+        public bool HasLegs { get; private set; }
+        public double PreviousY { get; private set; }
 
-        private readonly Dictionary<PlayerState, BitmapImage> _playerStateSpritesRight = new()
+        public override void Update(Scene scene, double deltaTime)
         {
-            { PlayerState.WalkingNormal, new BitmapImage(new Uri("pack://application:,,,/Sprites/mike_right.png")) },
-            { PlayerState.WalkingKnife, new BitmapImage(new Uri("pack://application:,,,/Sprites/mike_knife_right.png")) },
-            { PlayerState.WalkingLegs, new BitmapImage(new Uri("pack://application:,,,/Sprites/mike_jump_right.png")) },
-            { PlayerState.WalkingCombo, new BitmapImage(new Uri("pack://application:,,,/Sprites/mike_ulta_right.png")) }
-        };
-        #endregion
+            PreviousY = Y;
+            GameInput input = scene.Input;
 
-        private ObjectSprite playerSprite;
-        private PlayerState _playerState;
-        private DirectionVector _playerMoveDirectionVector;
-        private float gravityVelocity = -16f;
-        private (float, float) velocity;
-
-        public Player() : base((0, 0))
-        {
-            _playerState = PlayerState.WalkingNormal;
-            _playerMoveDirectionVector = DirectionVector.Right;
-            playerSprite = new ObjectSprite(position: (X, Y), this)
+            int direction = 0;
+            if (input.Right)
             {
-                ObjectImage = GetBitmapImage()
-            };
-            SelfCollider = this;
-        }
+                direction++;
+            }
 
-        private int _playerMoveSpeed = 10;
-        private void Walk()
-        {
-            if (Keyboard.IsKeyDown(Key.Right)) ChangeMoveDirection(DirectionVector.Right);
-            else if (Keyboard.IsKeyDown(Key.Left)) ChangeMoveDirection(DirectionVector.Left);
-            else return;
-
-            if (_directionsCollision[_playerMoveDirectionVector]) return;
-            Console.Write(_playerMoveDirectionVector);
-
-            velocity.Item1 = _playerMoveDirectionVector switch
+            if (input.Left)
             {
-                DirectionVector.Left => velocity.Item1 -= _playerMoveSpeed,
-                DirectionVector.Right => velocity.Item1 += _playerMoveSpeed,
-                _ => throw new ArgumentOutOfRangeException()
-            };
-        }
+                direction--;
+            }
 
-        private void ApplyGravity()
-        {
-            velocity.Item2 += gravityVelocity;
-        }
-
-        private void ChangeMoveDirection(DirectionVector moveDirectionVector)
-        {
-            if (moveDirectionVector == _playerMoveDirectionVector) return;
-            _playerMoveDirectionVector = moveDirectionVector;
-        }
-
-        private BitmapImage GetBitmapImage()
-        {
-            var bitmapImage = _playerMoveDirectionVector switch
+            VelocityX = direction * k_moveSpeed;
+            if (direction != 0)
             {
-                DirectionVector.Left => _playerStateSpritesLeft[_playerState],
-                DirectionVector.Right => _playerStateSpritesRight[_playerState],
-                _ => throw new ArgumentOutOfRangeException()
-            };
+                FacingRight = direction > 0;
+            }
 
-            return bitmapImage;
+            m_coyoteTimer = IsGrounded ? k_coyoteTime : m_coyoteTimer - deltaTime;
+            m_jumpBufferTimer = input.JumpPressed ? k_jumpBufferTime : m_jumpBufferTimer - deltaTime;
+
+            if (IsGrounded)
+            {
+                m_usedDoubleJump = false;
+            }
+
+            if (m_jumpBufferTimer > 0)
+            {
+                if (m_coyoteTimer > 0)
+                {
+                    Jump();
+                }
+                else if (HasLegs && !m_usedDoubleJump)
+                {
+                    m_usedDoubleJump = true;
+                    Jump();
+                }
+            }
+
+            if (!input.JumpHeld && VelocityY > k_jumpCutSpeed)
+            {
+                VelocityY = k_jumpCutSpeed;
+            }
+
+            ApplyGravity(deltaTime);
+            Move(scene, deltaTime);
+            UpdateSprite();
         }
 
-
-        private bool _isOnGround => _directionsCollision[DirectionVector.Down];
-
-        private void ChangePlayerState(PlayerState playerState)
+        public void Bounce()
         {
-            _playerState = playerState;
+            VelocityY = k_bounceSpeed;
         }
 
-        private bool _isJumping = false;
-        private float _jumpVelocity = 45f;
-        private float _jumpTemp;
-        private bool _jumpPressedLastFrame;
+        public void GiveKnife()
+        {
+            HasKnife = true;
+        }
+
+        public void GiveLegs()
+        {
+            HasLegs = true;
+            Height = k_heightWithLegs;
+        }
+
+        public bool IsFacing(GameObject other)
+        {
+            return FacingRight == other.CenterX > CenterX;
+        }
+
+        public override void Draw()
+        {
+            double bodyLeft = CenterX - k_spriteBodyWidth / 2;
+            Canvas.SetLeft(Image, FacingRight ? bodyLeft : bodyLeft + k_spriteBodyWidth - Image.Width);
+            Canvas.SetTop(Image, -Y - Image.Height);
+        }
 
         private void Jump()
         {
-            if (_isJumping && (_isOnGround || _directionsCollision[DirectionVector.Up]) || _jumpTemp < 0)
-            {
-                _isJumping = false;
-                _jumpTemp = 0;
-            }
-
-
-            if ((_isOnGround || _isJumping && _playerState == PlayerState.WalkingLegs) && Keyboard.IsKeyDown(Key.Up) && !_jumpPressedLastFrame)
-            {
-                _jumpTemp = _jumpVelocity;
-                _isJumping = true;
-            }
-            _jumpPressedLastFrame = Keyboard.IsKeyDown(Key.Up);
-            if (_isJumping)
-            {
-                velocity.Item2 += _jumpTemp;
-                _jumpTemp -= 2;
-            }
+            VelocityY = k_jumpSpeed;
+            m_coyoteTimer = 0;
+            m_jumpBufferTimer = 0;
         }
 
-        
-        public override void Update()
+        private void UpdateSprite()
         {
-            playerSprite.Update();
-            velocity = (0, 0);
-            ApplyGravity();
-            Walk();
-            Jump();
-            GameCore.GameCanvas.RenderTransform = new TranslateTransform(GameCore.GameCanvas.RenderTransformOrigin.X, Y - 200);
-
-            var moveDistanceY = 0f;
-            
-            switch (velocity.Item2)
+            string name = "mike";
+            if (HasKnife && HasLegs)
             {
-                case < 0:
-                {
-                    while (moveDistanceY < Math.Abs(velocity.Item2) && !_directionsCollision[DirectionVector.Down]) { CheckCollision(); Y--; moveDistanceY++; }
-
-                    break;
-                }
-                case > 0:
-                {
-                    while (moveDistanceY < Math.Abs(velocity.Item2) && !_directionsCollision[DirectionVector.Up]) { CheckCollision(); Y++; moveDistanceY++; }
-
-                    break;
-                }
+                name = "mike_combo";
             }
-            
-            var moveDistanceX = 0f;
-            switch (velocity.Item1)
+            else if (HasKnife)
             {
-                case < 0:
-                {
-                    while (moveDistanceX < Math.Abs(velocity.Item1) && !_directionsCollision[DirectionVector.Left]) { CheckCollision(); X--; moveDistanceX++; }
-
-                    break;
-                }
-                case > 0:
-                {
-                    while (moveDistanceX < Math.Abs(velocity.Item1) && !_directionsCollision[DirectionVector.Right]) { CheckCollision(); X++; moveDistanceX++; }
-
-                    break;
-                }
+                name = "mike_knife";
+            }
+            else if (HasLegs)
+            {
+                name = "mike_legs";
             }
 
-
-
-            if (Keyboard.IsKeyDown(Key.F1)) ChangePlayerState(PlayerState.WalkingNormal);
-            if (Keyboard.IsKeyDown(Key.F2)) ChangePlayerState(PlayerState.WalkingKnife);
-            if (Keyboard.IsKeyDown(Key.F3)) ChangePlayerState(PlayerState.WalkingLegs);
-            if (Keyboard.IsKeyDown(Key.F4)) ChangePlayerState(PlayerState.WalkingCombo);
-
-            playerSprite.ObjectImage = GetBitmapImage();
-            base.Update();
-        }
-
-        private readonly Dictionary<DirectionVector, bool> _directionsCollision = new()
-        {
-            { DirectionVector.Down, false },
-            { DirectionVector.Up, false },
-            { DirectionVector.Left, false },
-            { DirectionVector.Right, false }
-        };
-
-        public ICollidableObject<Player> SelfCollider { get; }
-        public bool IsColliderEnabled { get; set; } = true;
-        public void CheckCollision()
-        {
-            foreach (var direction in _directionsCollision.Keys.ToList())
-            {
-                _directionsCollision[direction] = false;
-            }
-
-            var _currentSceneGO = new List<GameObject>(SceneManager.SceneGameObjects);
-            foreach (var gameObject in _currentSceneGO)
-            {
-                if (gameObject is Pearl pearl)
-                {
-                    if (SelfCollider.CollidesWith(pearl) != DirectionVector.None)
-                    {
-                        CollectBonus(pearl);
-                    }
-                } else if (gameObject != this)
-                {
-                    var collisionDirection = SelfCollider.CollidesWith(gameObject);
-                    if (collisionDirection != DirectionVector.None)
-                    {
-                        _directionsCollision[collisionDirection] = true;
-                    }
-                }
-            }
-        }
-
-        public void InteractWithEnemy(Enemies.Enemy enemy)
-        {
-            SceneManager.ReloadCurrentScene();
-        }
-
-        internal void CollectBonus(IBonus bonus)
-        {
-            bonus.CollectBonus();
+            SetSprite(SpriteLoader.Get(name + (FacingRight ? "_right" : "_left")));
         }
     }
-
 }

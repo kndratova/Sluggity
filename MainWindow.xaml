@@ -1,8 +1,12 @@
 ﻿<Window x:Class="Sluggity.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Sluggity" Height="620.4" Width="976.4">
-    <Grid>
-        <Frame Name="MainFrame" NavigationUIVisibility="Hidden" />
-    </Grid>
+        Title="Sluggity"
+        Width="976" Height="639" MinWidth="496" MinHeight="339"
+        WindowStartupLocation="CenterScreen"
+        Background="Black">
+    <Viewbox Stretch="Uniform">
+        <Frame x:Name="MainFrame" Width="960" Height="600"
+               NavigationUIVisibility="Hidden" Focusable="False" ClipToBounds="True" />
+    </Viewbox>
 </Window>
