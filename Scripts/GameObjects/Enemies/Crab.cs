@@ -4,12 +4,12 @@ using System.Windows.Media.Imaging;
 
 namespace Sluggity.GameObjects.Enemies
 {
-    public class Crub : Enemy
+    public class Crab : Enemy
     {
         private readonly BitmapImage _crubSpriteLeft = new(new Uri("pack://application:,,,/Sprites/crub_left.png"));
         private readonly BitmapImage _crubSpriteRight = new(new Uri("pack://application:,,,/Sprites/crub_right.png"));
 
-        public Crub((float, float) position) : base(position)
+        public Crab((float, float) position) : base(position)
         {
             _enemySpriteLeft = _crubSpriteLeft;
             _enemySpriteRight = _crubSpriteRight;
