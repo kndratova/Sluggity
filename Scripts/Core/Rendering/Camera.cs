@@ -7,6 +7,7 @@ namespace Sluggity.Core.Rendering
         public double X { get; set; }
         public double Y { get; set; }
         public double ViewHeight { get; set; }
+        public double ViewWidth { get; set; }
 
         public Point WorldToScreen(double worldX, double worldY)
         {

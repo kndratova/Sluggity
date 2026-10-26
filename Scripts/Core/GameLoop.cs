@@ -15,7 +15,7 @@ namespace Sluggity.Core
 
         public event Action<double> Update;
         public event Action<double> FixedUpdate;
-        public event Action Render;
+        public event Action<double> Render;
 
         public bool IsRunning { get; private set; }
 
@@ -60,7 +60,7 @@ namespace Sluggity.Core
                 m_accumulator -= FixedDeltaTime;
             }
 
-            Render?.Invoke();
+            Render?.Invoke(frameTime);
         }
     }
 }

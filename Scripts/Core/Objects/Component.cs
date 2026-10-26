@@ -16,4 +16,5 @@ public abstract class Component
     public virtual void Start(Scene scene) { }
     public virtual void Update(Scene scene, double deltaTime) { }
     public virtual void FixedUpdate(Scene scene, double fixedDeltaTime) { }
+    public virtual void LateUpdate(Scene scene, double deltaTime) { }
 }

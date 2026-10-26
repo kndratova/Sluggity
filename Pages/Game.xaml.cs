@@ -8,6 +8,7 @@ using Sluggity.Core.Objects;
 using Sluggity.Core.Physics;
 using Sluggity.Core.Rendering;
 using Sluggity.Core.SceneManagement;
+using Sluggity.Gameplay;
 using Sluggity.Gameplay.Player;
 
 namespace Sluggity.Pages
@@ -44,6 +45,7 @@ namespace Sluggity.Pages
         private void CreateScene()
         {
             m_camera.ViewHeight = GameCanvas.ActualHeight;
+            m_camera.ViewWidth = GameCanvas.ActualWidth;
             m_scene = new Scene(GameCanvas, m_camera, m_gameInput);
 
             CreateTestObjects();
@@ -57,7 +59,8 @@ namespace Sluggity.Pages
             crab.AddComponent(new SpriteView("crub_left"));
             crab.AddComponent(new Collider(-60, 0, 120, 70, true));
 
-            m_scene.Add(new PlayerCharacter(100, 456));
+            var player = m_scene.Add(new PlayerCharacter(100, 456));
+            m_scene.Add(new CameraRig(player));
 
             var ground = m_scene.Add(new GameObject(0, 0));
             ground.AddComponent(new RectangleView(800, 50, Colors.DarkGreen));
@@ -85,7 +88,7 @@ namespace Sluggity.Pages
         {
             m_loop.Update += OnUpdate;
             m_loop.FixedUpdate += m_scene.FixedUpdate;
-            m_loop.Render += m_scene.Draw;
+            m_loop.Render += m_scene.Render;
             m_loop.Start();
         }
 
@@ -94,7 +97,7 @@ namespace Sluggity.Pages
             m_loop.Stop();
             m_loop.Update -= OnUpdate;
             m_loop.FixedUpdate -= m_scene.FixedUpdate;
-            m_loop.Render -= m_scene.Draw;
+            m_loop.Render -= m_scene.Render;
         }
 
         private void OnUpdate(double deltaTime)

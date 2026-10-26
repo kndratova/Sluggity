@@ -18,13 +18,12 @@ namespace Sluggity.Core.SceneManagement
         private readonly List<GameObject> m_gameObjects = new List<GameObject>();
         private readonly List<GameObject> m_pendingObjects = new List<GameObject>();
 
+        internal Canvas Canvas => m_canvas;
+        internal Camera Camera => m_camera;
         public GameInput GameInput => m_gameInput;
         public Collisions Collisions => m_collisions;
 
         public IReadOnlyList<GameObject> GameObjects => m_gameObjects;
-
-        internal Canvas Canvas => m_canvas;
-        internal Camera Camera => m_camera;
 
         public Scene(Canvas canvas, Camera camera, GameInput gameInput)
         {
@@ -74,6 +73,16 @@ namespace Sluggity.Core.SceneManagement
 
             m_collisions.ResolveContacts();
             RemoveDestroyed();
+        }
+        
+        public void Render(double deltaTime)
+        {
+            foreach (GameObject gameObject in m_gameObjects)
+            {
+                gameObject.LateUpdate(this, deltaTime);
+            }
+
+            Draw();
         }
 
         public void Draw()

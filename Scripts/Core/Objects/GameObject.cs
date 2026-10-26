@@ -144,9 +144,21 @@ namespace Sluggity.Core.Objects
             }
         }
         
+        internal void LateUpdate(Scene scene, double deltaTime)
+        {
+            OnLateUpdate(scene, deltaTime);
+
+            foreach (Component component in m_components.ToList())
+            {
+                component.LateUpdate(scene, deltaTime);
+            }
+        }
+        
+        
         protected virtual void OnStart(Scene scene) { }
         protected virtual void OnUpdate(Scene scene, double deltaTime) { }
         protected virtual void OnFixedUpdate(Scene scene, double fixedDeltaTime) { }
+        protected virtual void OnLateUpdate(Scene scene, double deltaTime) { }
 
         // shortcuts
         public ObjectView View => GetComponent<ObjectView>();
