@@ -24,4 +24,9 @@ public readonly struct Box
     {
         return X < other.Right && Right > other.X && Y < other.Top && Top > other.Y;
     }
+    
+    public bool Contains(double x, double y)
+    {
+        return x >= X && x <= Right && y >= Y && y <= Top;
+    }
 }
