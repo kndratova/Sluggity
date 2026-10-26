@@ -1,15 +1,16 @@
 ﻿using System.Windows;
 
-namespace Sluggity.Core.Rendering;
-
-public class Camera
+namespace Sluggity.Core.Rendering
 {
-    public double X { get; set; }
-    public double Y { get; set; }
-    public double ViewHeight { get; set; }
-
-    public Point WorldToScreen(double worldX, double worldY)
+    public class Camera
     {
-        return new Point(worldX - X, ViewHeight - (worldY - Y));
+        public double X { get; set; }
+        public double Y { get; set; }
+        public double ViewHeight { get; set; }
+
+        public Point WorldToScreen(double worldX, double worldY)
+        {
+            return new Point(worldX - X, ViewHeight - (worldY - Y));
+        }
     }
 }

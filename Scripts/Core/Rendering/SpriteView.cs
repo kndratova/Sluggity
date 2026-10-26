@@ -4,35 +4,36 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Sluggity.Core.Objects;
 
-namespace Sluggity.Core.Rendering;
-
-public class SpriteView : ObjectView
+namespace Sluggity.Core.Rendering
 {
-    private readonly Image m_image = new Image { Stretch = Stretch.Fill };
-
-    public SpriteView(BitmapSource sprite)
+    public class SpriteView : ObjectView
     {
-        SetSprite(sprite);
-    }
+        private readonly Image m_image = new Image { Stretch = Stretch.Fill };
 
-    public override FrameworkElement Element => m_image;
-
-    public void SetSprite(BitmapSource sprite)
-    {
-        if (m_image.Source == sprite)
+        public SpriteView(BitmapSource sprite)
         {
-            return;
+            SetSprite(sprite);
         }
 
-        m_image.Source = sprite;
-        m_image.Width = sprite.PixelWidth;
-        m_image.Height = sprite.PixelHeight;
-    }
+        public override FrameworkElement Element => m_image;
 
-    public override void Draw(GameObject owner, Camera camera)
-    {
-        Point screen = camera.WorldToScreen(owner.Bounds.CenterX - m_image.Width / 2, owner.Bounds.Y + m_image.Height);
-        Canvas.SetLeft(m_image, screen.X);
-        Canvas.SetTop(m_image, screen.Y);
+        public void SetSprite(BitmapSource sprite)
+        {
+            if (m_image.Source == sprite)
+            {
+                return;
+            }
+
+            m_image.Source = sprite;
+            m_image.Width = sprite.PixelWidth;
+            m_image.Height = sprite.PixelHeight;
+        }
+
+        public override void Draw(GameObject owner, Camera camera)
+        {
+            Point screen = camera.WorldToScreen(owner.Bounds.CenterX - m_image.Width / 2, owner.Bounds.Y + m_image.Height);
+            Canvas.SetLeft(m_image, screen.X);
+            Canvas.SetTop(m_image, screen.Y);
+        }
     }
 }

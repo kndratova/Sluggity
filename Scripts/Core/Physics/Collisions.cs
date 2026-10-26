@@ -2,21 +2,22 @@
 using System.Linq;
 using Sluggity.Core.Objects;
 
-namespace Sluggity.Core.Physics;
-
-public class Collisions
+namespace Sluggity.Core.Physics
 {
-    private readonly IReadOnlyList<GameObject> m_gameObjects;
-
-    public Collisions(IReadOnlyList<GameObject> gameObjects)
+    public class Collisions
     {
-        m_gameObjects = gameObjects;
-    }
+        private readonly IReadOnlyList<GameObject> m_gameObjects;
 
-    public IEnumerable<Obstacle> Solids => m_gameObjects.OfType<Obstacle>();
+        public Collisions(IReadOnlyList<GameObject> gameObjects)
+        {
+            m_gameObjects = gameObjects;
+        }
 
-    public bool IsSolidAt(double x, double y)
-    {
-        return Solids.Any(o => o.Bounds.Contains(x, y));
+        public IEnumerable<Obstacle> Solids => m_gameObjects.OfType<Obstacle>();
+
+        public bool IsSolidAt(double x, double y)
+        {
+            return Solids.Any(o => o.Bounds.Contains(x, y));
+        }
     }
 }
