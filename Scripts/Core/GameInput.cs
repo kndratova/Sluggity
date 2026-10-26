@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace Sluggity.Core;
 
-public class Input
+public class GameInput
 {
     private readonly HashSet<Key> m_heldKeys = new HashSet<Key>();
     private readonly HashSet<Key> m_pressedKeys = new HashSet<Key>();

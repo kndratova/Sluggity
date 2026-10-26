@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 
-namespace Sluggity.Core;
+namespace Sluggity.Core.Rendering;
 
 public static class SpriteLoader
 {

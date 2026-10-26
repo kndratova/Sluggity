@@ -1,7 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using Sluggity.Core.Objects;
 
-namespace Sluggity.Core.GameObject;
+namespace Sluggity.Core.Rendering;
 
 public abstract class ObjectView
 {

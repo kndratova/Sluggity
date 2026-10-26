@@ -3,8 +3,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Sluggity.Core;
+using Sluggity.Core.Physics;
+using Sluggity.Core.Rendering;
 using Sluggity.Core.SceneManagement;
-using Sluggity.GameObjects;
 
 namespace Sluggity.Pages;
 
@@ -12,7 +13,7 @@ public partial class Game : Page
 {
     private readonly Camera m_camera = new Camera();
     private readonly GameLoop m_loop = new GameLoop();
-    private readonly Input m_input = new Input();
+    private readonly GameInput m_gameInput = new GameInput();
 
     private Scene m_scene;
     private Window m_window;
@@ -43,7 +44,7 @@ public partial class Game : Page
     {
         m_camera.ViewHeight = GameCanvas.ActualHeight;
 
-        m_scene = new Scene(GameCanvas, m_camera, m_input);
+        m_scene = new Scene(GameCanvas, m_camera, m_gameInput);
         m_scene.Start();
     }
 
@@ -75,16 +76,16 @@ public partial class Game : Page
     private void OnTick(double deltaTime)
     {
         m_scene.Update(deltaTime);
-        m_input.EndFrame();
+        m_gameInput.EndFrame();
     }
 
     private void OnKeyDown(object sender, KeyEventArgs e)
     {
-        m_input.Press(e.Key);
+        m_gameInput.Press(e.Key);
     }
 
     private void OnKeyUp(object sender, KeyEventArgs e)
     {
-        m_input.Release(e.Key);
+        m_gameInput.Release(e.Key);
     }
 }

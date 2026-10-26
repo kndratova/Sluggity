@@ -2,7 +2,7 @@
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace Sluggity.Core.GameObject
+namespace Sluggity.Core.Rendering
 {
     public class RectangleView : ObjectView
     {

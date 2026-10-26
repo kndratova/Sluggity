@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
-using Sluggity.Core.GameObject;
-using Sluggity.GameObjects;
+using Sluggity.Core.Objects;
+using Sluggity.Core.Physics;
+using Sluggity.Core.Rendering;
 
 namespace Sluggity.Core.SceneManagement;
 
@@ -10,29 +11,29 @@ public class Scene
 {
     private readonly Canvas m_canvas;
     private readonly Camera m_camera;
-    private readonly Input m_input;
-    private readonly Physics m_physics;
+    private readonly GameInput m_gameInput;
+    private readonly Collisions m_collisions;
     
-    private readonly List<GameObject.GameObject> m_gameObjects = new List<GameObject.GameObject>();
-    private readonly List<GameObject.GameObject> m_pendingObjects = new List<GameObject.GameObject>();
+    private readonly List<GameObject> m_gameObjects = new List<GameObject>();
+    private readonly List<GameObject> m_pendingObjects = new List<GameObject>();
     
     private bool m_isStarted;
     
-    public Input Input => m_input;
-    public Physics Physics => m_physics;
+    public GameInput GameInput => m_gameInput;
+    public Collisions Collisions => m_collisions;
     
-    public IReadOnlyList<GameObject.GameObject> GameObjects => m_gameObjects;
+    public IReadOnlyList<GameObject> GameObjects => m_gameObjects;
 
-    public Scene(Canvas canvas, Camera camera, Input input)
+    public Scene(Canvas canvas, Camera camera, GameInput gameInput)
     {
         m_canvas = canvas;
         m_camera = camera;
-        m_input = input;
+        m_gameInput = gameInput;
         
-        m_physics = new Physics(m_gameObjects);
+        m_collisions = new Collisions(m_gameObjects);
     }
     
-    public void Add(GameObject.GameObject gameObject)
+    public void Add(GameObject gameObject)
     {
         m_pendingObjects.Add(gameObject);
         if (gameObject.View == null)
@@ -58,12 +59,12 @@ public class Scene
     {
         AddPendingObjects();
 
-        foreach (GameObject.GameObject gameObject in m_gameObjects)
+        foreach (GameObject gameObject in m_gameObjects)
         {
             gameObject.EarlyUpdate(this, deltaTime);
         }
 
-        foreach (GameObject.GameObject gameObject in m_gameObjects)
+        foreach (GameObject gameObject in m_gameObjects)
         {
             gameObject.Update(this, deltaTime);
         }
@@ -79,11 +80,11 @@ public class Scene
             return;
         }
         
-        List<GameObject.GameObject> newObjects = new List<GameObject.GameObject>(m_pendingObjects);
+        List<GameObject> newObjects = new List<GameObject>(m_pendingObjects);
         m_pendingObjects.Clear();
 
         m_gameObjects.AddRange(newObjects);
-        foreach (GameObject.GameObject gameObject in newObjects)
+        foreach (GameObject gameObject in newObjects)
         {
             gameObject.Start(this);
         }
@@ -91,7 +92,7 @@ public class Scene
 
     private void RemoveDestroyed()
     {
-        foreach (GameObject.GameObject gameObject in m_gameObjects)
+        foreach (GameObject gameObject in m_gameObjects)
         {
             if (gameObject.IsDestroyed && gameObject.View != null)
             {
@@ -104,7 +105,7 @@ public class Scene
 
     private void Draw()
     {
-        foreach (GameObject.GameObject gameObject in m_gameObjects)
+        foreach (GameObject gameObject in m_gameObjects)
         {
             gameObject.Draw(m_camera);
         }

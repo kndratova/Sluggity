@@ -2,8 +2,9 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Sluggity.Core.Objects;
 
-namespace Sluggity.Core.GameObject;
+namespace Sluggity.Core.Rendering;
 
 public class SpriteView : ObjectView
 {

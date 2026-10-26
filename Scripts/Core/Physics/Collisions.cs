@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Sluggity.GameObjects;
+using Sluggity.Core.Objects;
 
-namespace Sluggity.Core;
+namespace Sluggity.Core.Physics;
 
-public class Physics
+public class Collisions
 {
-    private readonly IReadOnlyList<GameObject.GameObject> m_gameObjects;
+    private readonly IReadOnlyList<GameObject> m_gameObjects;
 
-    public Physics(IReadOnlyList<GameObject.GameObject> gameObjects)
+    public Collisions(IReadOnlyList<GameObject> gameObjects)
     {
         m_gameObjects = gameObjects;
     }

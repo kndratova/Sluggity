@@ -1,7 +1,8 @@
 ﻿using System.Windows.Media;
+using Sluggity.Core.Rendering;
 using Sluggity.Core.SceneManagement;
 
-namespace Sluggity.Core.GameObject
+namespace Sluggity.Core.Objects
 {
     public abstract class GameObject
     {

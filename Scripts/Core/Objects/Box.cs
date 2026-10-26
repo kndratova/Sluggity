@@ -1,4 +1,4 @@
-﻿namespace Sluggity.Core.GameObject;
+﻿namespace Sluggity.Core.Objects;
 
 public readonly struct Box
 {

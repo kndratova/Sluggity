@@ -1,7 +1,8 @@
 ﻿using System.Windows.Media;
-using Sluggity.Core.GameObject;
+using Sluggity.Core.Objects;
+using Sluggity.Core.Rendering;
 
-namespace Sluggity.GameObjects
+namespace Sluggity.Core.Physics
 {
     public class Obstacle : GameObject
     {

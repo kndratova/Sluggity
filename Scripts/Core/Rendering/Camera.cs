@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Sluggity.Core;
+namespace Sluggity.Core.Rendering;
 
 public class Camera
 {
