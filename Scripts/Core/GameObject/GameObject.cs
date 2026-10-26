@@ -20,6 +20,7 @@ namespace Sluggity.Core.GameObject
         
         public Box Bounds => new Box(X, Y, Width, Height);
         
+        public bool IsCollidable { get; protected set; }
         public bool IsDestroyed { get; private set; }
 
         // visuals
@@ -27,7 +28,7 @@ namespace Sluggity.Core.GameObject
 
         public virtual void Draw(Camera camera)
         {
-            View.Draw(this, camera);
+            View?.Draw(this, camera);
         }
         
         // life cycle
@@ -49,12 +50,6 @@ namespace Sluggity.Core.GameObject
         public void Destroy()
         {
             IsDestroyed = true;
-        }
-        
-        // helpers
-        public bool Overlaps(GameObject other)
-        {
-            return Bounds.Overlaps(other.Bounds);
         }
     }
 }
