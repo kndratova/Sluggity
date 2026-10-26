@@ -4,16 +4,25 @@ using Sluggity.Core.Objects;
 
 namespace Sluggity.Core.Physics
 {
-    public class Collider(double offsetX, double offsetY, double width, double height, bool isSolid = false) : Component
+    public class Collider : Component
     {
         private HashSet<Collider> m_contacts = new HashSet<Collider>();
         private HashSet<Collider> m_nextContacts = new HashSet<Collider>();
+        
+        public Collider(double offsetX, double offsetY, double width, double height, bool isSolid = false)
+        {
+            OffsetX = offsetX;
+            OffsetY = offsetY;
+            Width = width;
+            Height = height;
+            IsSolid = isSolid;
+        }
 
-        public double OffsetX { get; set; } = offsetX;
-        public double OffsetY { get; set; } = offsetY;
-        public double Width { get; set; } = width;
-        public double Height { get; set; } = height;
-        public bool IsSolid { get; set; } = isSolid;
+        public double OffsetX { get; set; }
+        public double OffsetY { get; set; }
+        public double Width { get; set; }
+        public double Height { get; set; }
+        public bool IsSolid { get; set; }
 
         public event Action<Collider> ContactEntered;
         public event Action<Collider> ContactExited;

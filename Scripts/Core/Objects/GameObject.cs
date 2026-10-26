@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Media;
 using Sluggity.Core.Physics;
 using Sluggity.Core.Rendering;
 using Sluggity.Core.SceneManagement;
@@ -37,7 +38,14 @@ namespace Sluggity.Core.Objects
             {
                 component.Start(Scene);
             }
-
+            
+            if (component is Collider collider)
+            {
+                RectangleView debugRect = AddComponent(new RectangleView(collider.Width, collider.Height, null, Colors.GreenYellow));
+                debugRect.OffsetX = collider.OffsetX;
+                debugRect.OffsetY = collider.OffsetY;
+            }
+                
             return component;
         }
 

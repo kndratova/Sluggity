@@ -8,13 +8,15 @@ namespace Sluggity.Core.Rendering
     {
         private readonly Rectangle m_rectangle;
 
-        public RectangleView(double width, double height, Color color)
+        public RectangleView(double width, double height, Color? fill = null, Color? stroke = null, double strokeThickness = 1)
         {
             m_rectangle = new Rectangle
             {
                 Width = width,
                 Height = height,
-                Fill = CreateBrush(color),
+                Fill = CreateBrush(fill),
+                Stroke = CreateBrush(stroke),
+                StrokeThickness = strokeThickness,
             };
         }
 
@@ -32,14 +34,30 @@ namespace Sluggity.Core.Rendering
             set => m_rectangle.Height = value;
         }
 
-        public void SetColor(Color color)
+        public double StrokeThickness
+        {
+            get => m_rectangle.StrokeThickness;
+            set => m_rectangle.StrokeThickness = value;
+        }
+
+        public void SetFill(Color? color)
         {
             m_rectangle.Fill = CreateBrush(color);
         }
 
-        private static Brush CreateBrush(Color color)
+        public void SetStroke(Color? color)
         {
-            var brush = new SolidColorBrush(color);
+            m_rectangle.Stroke = CreateBrush(color);
+        }
+        
+        private static Brush CreateBrush(Color? color)
+        {
+            if (color == null)
+            {
+                return null;
+            }
+
+            var brush = new SolidColorBrush(color.Value);
             brush.Freeze();
             return brush;
         }
