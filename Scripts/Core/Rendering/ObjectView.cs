@@ -1,16 +1,39 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using Sluggity.Core.Objects;
+using Sluggity.Core.SceneManagement;
 
 namespace Sluggity.Core.Rendering
 {
-    public abstract class ObjectView
+    public abstract class ObjectView : Component
     {
         public abstract FrameworkElement Element { get; }
 
-        public virtual void Draw(GameObject owner, Camera camera)
+        // fixed shift in world units
+        public double OffsetX { get; set; }
+        public double OffsetY { get; set; }
+
+        // normalized pivot
+        public double PivotX { get; set; }
+        public double PivotY { get; set; }
+
+        public override void OnAddedToScene(Scene scene)
         {
-            Point screen = camera.WorldToScreen(owner.Bounds.X, owner.Bounds.Top);
+            scene.Canvas.Children.Add(Element);
+            Draw(scene.Camera);
+        }
+
+        public override void OnRemovedFromScene(Scene scene)
+        {
+            scene.Canvas.Children.Remove(Element);
+        }
+
+        public virtual void Draw(Camera camera)
+        {
+            double left = Owner.X + OffsetX - Element.Width * PivotX;
+            double bottom = Owner.Y + OffsetY - Element.Height * PivotY;
+
+            Point screen = camera.WorldToScreen(left, bottom + Element.Height);
             Canvas.SetLeft(Element, screen.X);
             Canvas.SetTop(Element, screen.Y);
         }

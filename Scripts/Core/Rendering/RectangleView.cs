@@ -10,19 +10,38 @@ namespace Sluggity.Core.Rendering
 
         public RectangleView(double width, double height, Color color)
         {
-            SolidColorBrush fill = new SolidColorBrush(color);
-            fill.Freeze();
-
-            m_rectangle = new Rectangle { Width = width, Height = height, Fill = fill };
-        }
-        
-        public void SetColor(Color color)
-        {
-            SolidColorBrush fill = new SolidColorBrush(color);
-            fill.Freeze();
-            m_rectangle.Fill = fill;
+            m_rectangle = new Rectangle
+            {
+                Width = width,
+                Height = height,
+                Fill = CreateBrush(color),
+            };
         }
 
         public override FrameworkElement Element => m_rectangle;
+
+        public double Width
+        {
+            get => m_rectangle.Width;
+            set => m_rectangle.Width = value;
+        }
+
+        public double Height
+        {
+            get => m_rectangle.Height;
+            set => m_rectangle.Height = value;
+        }
+
+        public void SetColor(Color color)
+        {
+            m_rectangle.Fill = CreateBrush(color);
+        }
+
+        private static Brush CreateBrush(Color color)
+        {
+            var brush = new SolidColorBrush(color);
+            brush.Freeze();
+            return brush;
+        }
     }
 }

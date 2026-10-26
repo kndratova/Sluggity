@@ -1,12 +1,12 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using Sluggity.Core;
 using Sluggity.Core.Input;
-using Sluggity.Core.Physics;
+using Sluggity.Core.Objects;
 using Sluggity.Core.Rendering;
 using Sluggity.Core.SceneManagement;
+using Sluggity.Gameplay.Player;
 
 namespace Sluggity.Pages;
 
@@ -32,7 +32,8 @@ public partial class Game : Page
         SubscribeToInput();
         StartLoop();
         
-        m_scene.Add(new Obstacle(0, 0, 50, 50, Colors.DarkKhaki));
+        var go = m_scene.Add(new GameObject(50, 50));
+        go.AddComponent(new SpriteView("crub_left"));
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)

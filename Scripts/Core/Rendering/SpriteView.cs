@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Sluggity.Core.Objects;
 
 namespace Sluggity.Core.Rendering
 {
@@ -12,7 +11,12 @@ namespace Sluggity.Core.Rendering
 
         public SpriteView(BitmapSource sprite)
         {
+            PivotX = 0.5;
             SetSprite(sprite);
+        }
+
+        public SpriteView(string spriteName) : this(SpriteLoader.Get(spriteName))
+        {
         }
 
         public override FrameworkElement Element => m_image;
@@ -29,11 +33,9 @@ namespace Sluggity.Core.Rendering
             m_image.Height = sprite.PixelHeight;
         }
 
-        public override void Draw(GameObject owner, Camera camera)
+        public void SetSprite(string spriteName)
         {
-            Point screen = camera.WorldToScreen(owner.Bounds.CenterX - m_image.Width / 2, owner.Bounds.Y + m_image.Height);
-            Canvas.SetLeft(m_image, screen.X);
-            Canvas.SetTop(m_image, screen.Y);
+            SetSprite(SpriteLoader.Get(spriteName));
         }
     }
 }

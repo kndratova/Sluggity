@@ -14,73 +14,86 @@ namespace Sluggity.Core.SceneManagement
         private readonly Camera m_camera;
         private readonly GameInput m_gameInput;
         private readonly Collisions m_collisions;
-    
+
         private readonly List<GameObject> m_gameObjects = new List<GameObject>();
         private readonly List<GameObject> m_pendingObjects = new List<GameObject>();
-    
-        private bool m_isStarted;
-    
+
         public GameInput GameInput => m_gameInput;
         public Collisions Collisions => m_collisions;
-    
+
         public IReadOnlyList<GameObject> GameObjects => m_gameObjects;
+
+        internal Canvas Canvas => m_canvas;
+        internal Camera Camera => m_camera;
 
         public Scene(Canvas canvas, Camera camera, GameInput gameInput)
         {
             m_canvas = canvas;
             m_camera = camera;
             m_gameInput = gameInput;
-        
+
             m_collisions = new Collisions(m_gameObjects);
         }
-    
-        public void Add(GameObject gameObject)
+
+        public T Add<T>(T gameObject) where T : GameObject
         {
             m_pendingObjects.Add(gameObject);
-            if (gameObject.View == null)
-            {
-                return;
-            }
-
-            m_canvas.Children.Add(gameObject.View.Element);
-            if (m_isStarted)
-            {
-                gameObject.Draw(m_camera);
-            }
+            gameObject.AddToScene(this);
+            return gameObject;
         }
-    
+
         public void Start()
         {
-            m_isStarted = true;
             AddPendingObjects();
             Draw();
         }
-    
+        
         public void Update(double deltaTime)
         {
             AddPendingObjects();
 
             foreach (GameObject gameObject in m_gameObjects)
             {
-                gameObject.EarlyUpdate(this, deltaTime);
-            }
-
-            foreach (GameObject gameObject in m_gameObjects)
-            {
                 gameObject.Update(this, deltaTime);
             }
-
-            RemoveDestroyed();
-            Draw();
         }
-    
+        
+        public void FixedUpdate(double fixedDeltaTime)
+        {
+            // scripted movement no collisions
+            foreach (GameObject gameObject in m_gameObjects)
+            {
+                gameObject.FixedUpdate(this, fixedDeltaTime);
+            }
+
+            // physics bodies movement and collision
+            foreach (GameObject gameObject in m_gameObjects)
+            {
+                gameObject.Body?.Step(this, fixedDeltaTime);
+            }
+
+            m_collisions.ResolveContacts();
+            RemoveDestroyed();
+        }
+
+        public void Draw()
+        {
+            foreach (GameObject gameObject in m_gameObjects)
+            {
+                foreach (ObjectView view in gameObject.GetComponents<ObjectView>())
+                {
+                    view.Draw(m_camera);
+                }
+            }
+        }
+
         private void AddPendingObjects()
         {
             if (m_pendingObjects.Count == 0)
             {
                 return;
             }
-        
+            
             List<GameObject> newObjects = new List<GameObject>(m_pendingObjects);
             m_pendingObjects.Clear();
 
@@ -93,23 +106,12 @@ namespace Sluggity.Core.SceneManagement
 
         private void RemoveDestroyed()
         {
-            foreach (GameObject gameObject in m_gameObjects)
+            foreach (GameObject gameObject in m_gameObjects.Where(o => o.IsDestroyed))
             {
-                if (gameObject.IsDestroyed && gameObject.View != null)
-                {
-                    m_canvas.Children.Remove(gameObject.View.Element);
-                }
+                gameObject.RemoveFromScene();
             }
 
             m_gameObjects.RemoveAll(o => o.IsDestroyed);
-        }
-
-        private void Draw()
-        {
-            foreach (GameObject gameObject in m_gameObjects)
-            {
-                gameObject.Draw(m_camera);
-            }
         }
     }
 }
