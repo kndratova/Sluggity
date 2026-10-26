@@ -36,6 +36,11 @@ namespace Sluggity.Core.GameObject
             
         }
         
+        // runs before update for all objects, for physics etc
+        public virtual void EarlyUpdate(Scene scene, double deltaTime)
+        {
+        }
+        
         public virtual void Update(Scene scene, double deltaTime)
         {
             
