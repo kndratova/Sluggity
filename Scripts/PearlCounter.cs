@@ -13,7 +13,7 @@ namespace Sluggity.Scripts
 
         public PearlCounter()
         {
-            if (GameCore.GameCanvas != null)
+            /*if (GameCore.GameCanvas != null)
             {
                 _counter = new Label()
                 {
@@ -30,7 +30,7 @@ namespace Sluggity.Scripts
 
                 GameCore.GameCanvas.Children.Add(_counter);
                 Console.Write(_counter.Width);
-            }
+            }*/
         }
     }
 }

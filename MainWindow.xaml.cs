@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using System.Windows.Navigation;
+using Sluggity.Pages;
 
 namespace Sluggity
 {
@@ -19,7 +9,31 @@ namespace Sluggity
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new Pages.MainMenu());
+
+            // clear navigation history
+            MainFrame.Navigated += OnMainFrameNavigated;
+            // set size
+            Loaded += OnLoaded;
+
+            MainFrame.Navigate(new Game());
+        }
+
+        private void OnMainFrameNavigated(object sender, NavigationEventArgs e)
+        {
+            while (MainFrame.CanGoBack)
+            {
+                MainFrame.RemoveBackEntry();
+            }
+        }
+        
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            MinWidth = ActualWidth;
+            MinHeight = ActualHeight;
+            
+            SizeToContent = SizeToContent.Manual;
+            RootViewbox.Width = double.NaN;
+            RootViewbox.Height = double.NaN;
         }
     }
 }

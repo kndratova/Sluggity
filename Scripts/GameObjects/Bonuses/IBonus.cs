@@ -2,7 +2,7 @@
 {
     internal interface IBonus
     {
-        ObjectSprite Sprite { get; }
+        SpriteView SpriteView { get; }
 
         void CollectBonus();
     }

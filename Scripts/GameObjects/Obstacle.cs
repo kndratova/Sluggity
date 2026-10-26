@@ -1,46 +1,15 @@
-﻿using System;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
-using Sluggity.Core;
+﻿using System.Windows.Media;
 
 namespace Sluggity.GameObjects
 {
-    public class Obstacle : GameObject, ICollidableObject<Obstacle>
+    public class Obstacle : GameObject
     {
-        private Rectangle _colliderVisual;
-
-        public Obstacle((float, float) position) : base(position)
+        public Obstacle(double x, double y, double width, double height, Color color) : base(x, y, width, height)
         {
-            IsColliderEnabled = true;
-
-            _colliderVisual = new Rectangle
-            {
-                Stroke = Brushes.Blue,
-                StrokeThickness = 2,
-                Fill = Brushes.Transparent
-            };
-            GameCore.GameCanvas.Children.Add(_colliderVisual);
+            View = new RectangleView(width, height, color);
         }
 
-        public ICollidableObject<Obstacle> SelfCollider => this;
-        public bool IsColliderEnabled { get; set; }
-
-        public override void Update()
-        {
-            base.Update();
-            UpdateColliderVisual();
-        }
-
-        private void UpdateColliderVisual()
-        {
-            if (_colliderVisual != null)
-            {
-                _colliderVisual.Width = Width;
-                _colliderVisual.Height = Height;
-                Canvas.SetLeft(_colliderVisual, X);
-                Canvas.SetBottom(_colliderVisual, Y);
-            }
-        }
+        public double DeltaX { get; protected set; }
+        public double DeltaY { get; protected set; }
     }
 }
