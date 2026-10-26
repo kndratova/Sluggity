@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Sluggity.Core;
+using Sluggity.Core.Input;
 using Sluggity.Core.Physics;
 using Sluggity.Core.Rendering;
 using Sluggity.Core.SceneManagement;
