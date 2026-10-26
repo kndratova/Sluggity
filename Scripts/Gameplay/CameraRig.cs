@@ -36,8 +36,8 @@ namespace Sluggity.Gameplay
                 return;
             }
 
-            double targetX = Target.X - camera.ViewWidth * AnchorX;
-            double targetY = Target.Y - camera.ViewHeight * AnchorY;
+            double targetX = Target.RenderX - camera.ViewWidth * AnchorX;
+            double targetY = Target.RenderY - camera.ViewHeight * AnchorY;
 
             camera.X = camera.X + (targetX - camera.X) * t;
             camera.Y = camera.Y + (targetY - camera.Y) * t;

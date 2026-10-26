@@ -15,7 +15,8 @@ namespace Sluggity.Core
 
         public event Action<double> Update;
         public event Action<double> FixedUpdate;
-        public event Action<double> Render;
+        // frame time and interpolation alpha between fixed steps
+        public event Action<double, double> Render;
 
         public bool IsRunning { get; private set; }
 
@@ -60,7 +61,7 @@ namespace Sluggity.Core
                 m_accumulator -= FixedDeltaTime;
             }
 
-            Render?.Invoke(frameTime);
+            Render?.Invoke(frameTime, m_accumulator / FixedDeltaTime);
         }
     }
 }

@@ -30,8 +30,8 @@ namespace Sluggity.Core.Rendering
 
         public virtual void Draw(Camera camera)
         {
-            double left = Owner.X + OffsetX - Element.Width * PivotX;
-            double bottom = Owner.Y + OffsetY - Element.Height * PivotY;
+            double left = Owner.RenderX + OffsetX - Element.Width * PivotX;
+            double bottom = Owner.RenderY + OffsetY - Element.Height * PivotY;
 
             Point screen = camera.WorldToScreen(left, bottom + Element.Height);
             Canvas.SetLeft(Element, screen.X);

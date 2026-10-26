@@ -59,6 +59,11 @@ namespace Sluggity.Core.SceneManagement
         
         public void FixedUpdate(double fixedDeltaTime)
         {
+            foreach (GameObject gameObject in m_gameObjects)
+            {
+                gameObject.SavePreviousPosition();
+            }
+
             // scripted movement no collisions
             foreach (GameObject gameObject in m_gameObjects)
             {
@@ -75,8 +80,13 @@ namespace Sluggity.Core.SceneManagement
             RemoveDestroyed();
         }
         
-        public void Render(double deltaTime)
+        public void Render(double deltaTime, double alpha)
         {
+            foreach (GameObject gameObject in m_gameObjects)
+            {
+                gameObject.Interpolate(alpha);
+            }
+
             foreach (GameObject gameObject in m_gameObjects)
             {
                 gameObject.LateUpdate(this, deltaTime);

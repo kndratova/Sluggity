@@ -14,12 +14,20 @@ namespace Sluggity.Core.Objects
 
         public GameObject(double x, double y)
         {
-            X = x;
-            Y = y;
+            MoveInstant(x, y);
         }
 
         public double X { get; set; }
         public double Y { get; set; }
+
+        // position at the start of the last fixed step
+        public double PreviousX { get; private set; }
+        public double PreviousY { get; private set; }
+
+        // interpolated position ONLY FOR DRAWING
+        public double RenderX { get; private set; }
+        public double RenderY { get; private set; }
+
         public bool IsDestroyed { get; private set; }
         public bool IsStarted => m_isStarted;
         public Scene Scene { get; private set; }
@@ -113,8 +121,30 @@ namespace Sluggity.Core.Objects
             Scene = null;
         }
 
+        // moves go without interpolation
+        public void MoveInstant(double x, double y)
+        {
+            X = x;
+            Y = y;
+            PreviousX = RenderX = x;
+            PreviousY = RenderY = y;
+        }
+
+        internal void SavePreviousPosition()
+        {
+            PreviousX = X;
+            PreviousY = Y;
+        }
+
+        internal void Interpolate(double alpha)
+        {
+            RenderX = PreviousX + (X - PreviousX) * alpha;
+            RenderY = PreviousY + (Y - PreviousY) * alpha;
+        }
+
         internal void Start(Scene scene)
         {
+            MoveInstant(X, Y);
             m_isStarted = true;
             OnStart(scene);
 
