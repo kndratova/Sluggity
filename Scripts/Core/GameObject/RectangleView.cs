@@ -15,6 +15,13 @@ namespace Sluggity.Core.GameObject
 
             m_rectangle = new Rectangle { Width = width, Height = height, Fill = fill };
         }
+        
+        public void SetColor(Color color)
+        {
+            SolidColorBrush fill = new SolidColorBrush(color);
+            fill.Freeze();
+            m_rectangle.Fill = fill;
+        }
 
         public override FrameworkElement Element => m_rectangle;
     }
