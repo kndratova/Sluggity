@@ -8,6 +8,7 @@ using Sluggity.Core.Objects;
 using Sluggity.Core.Physics;
 using Sluggity.Core.Rendering;
 using Sluggity.Core.SceneManagement;
+using Sluggity.Gameplay.Player;
 
 namespace Sluggity.Pages
 {
@@ -55,11 +56,16 @@ namespace Sluggity.Pages
             var crab = m_scene.Add(new GameObject(400, 300));
             crab.AddComponent(new SpriteView("crub_left"));
             crab.AddComponent(new Collider(-60, 0, 120, 70, true));
-            crab.AddComponent(new PhysicsBody());
+
+            m_scene.Add(new PlayerCharacter(100, 456));
 
             var ground = m_scene.Add(new GameObject(0, 0));
             ground.AddComponent(new RectangleView(800, 50, Colors.DarkGreen));
             ground.AddComponent(new Collider(0, 0, 800, 50, true));
+            
+            var ger = m_scene.Add(new GameObject(0, 0));
+            ger.AddComponent(new RectangleView(50, 600, Colors.DarkGreen));
+            ger.AddComponent(new Collider(0, 0, 50, 600, true));
         }
 
         private void SubscribeToInput()
