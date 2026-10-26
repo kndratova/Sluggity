@@ -5,7 +5,7 @@
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterScreen"
         Background="Black">
-    <Viewbox x:Name="RootViewbox" Width="800" Height="600" Stretch="Uniform">
+    <Viewbox x:Name="RootViewbox" Width="800" Height="600" Stretch="Uniform" RenderOptions.BitmapScalingMode="NearestNeighbor">
         <Frame x:Name="MainFrame"
                Width="800"
                Height="600"
