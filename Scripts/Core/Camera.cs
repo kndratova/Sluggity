@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 
+namespace Sluggity.Core;
+
 public class Camera
 {
     public double X { get; set; }

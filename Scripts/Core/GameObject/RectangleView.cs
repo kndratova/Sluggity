@@ -1,9 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Sluggity.Core.GameObject;
 
-namespace Sluggity.GameObjects
+namespace Sluggity.Core.GameObject
 {
     public class RectangleView : ObjectView
     {

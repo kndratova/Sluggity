@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Sluggity.Core;
 using Sluggity.GameObjects;
 
 namespace Sluggity.Pages;

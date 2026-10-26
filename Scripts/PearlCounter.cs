@@ -1,11 +1,6 @@
-﻿
-using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using Sluggity.Core;
+﻿using System.Windows.Controls;
 
-namespace Sluggity.Scripts
+namespace Sluggity
 {
     internal class PearlCounter
     {

@@ -1,4 +1,6 @@
-﻿namespace Sluggity.GameObjects.Bonuses
+﻿using Sluggity.Core.GameObject;
+
+namespace Sluggity.GameObjects.Bonuses
 {
     internal interface IBonus
     {

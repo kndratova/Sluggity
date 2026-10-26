@@ -1,4 +1,6 @@
-﻿public readonly struct Box
+﻿namespace Sluggity.Core.GameObject;
+
+public readonly struct Box
 {
     public Box(double x, double y, double width, double height)
     {

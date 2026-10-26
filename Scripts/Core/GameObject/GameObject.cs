@@ -1,11 +1,7 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using Sluggity.Core;
-using Sluggity.Core.GameObject;
-using Sluggity.Core.Scenes;
+﻿using System.Windows.Media;
+using Sluggity.Core.SceneManagement;
 
-namespace Sluggity.GameObjects
+namespace Sluggity.Core.GameObject
 {
     public abstract class GameObject
     {

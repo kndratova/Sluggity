@@ -1,4 +1,5 @@
 ﻿using System;
+using Sluggity.Core.GameObject;
 
 namespace Sluggity.GameObjects
 {
