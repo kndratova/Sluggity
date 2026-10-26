@@ -2,98 +2,22 @@
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
-  </PropertyGroup>
-  <PropertyGroup>
+    <Nullable>disable</Nullable>
     <StartupObject>Sluggity.App</StartupObject>
   </PropertyGroup>
+
   <ItemGroup>
-    <None Remove="Sprites\background.png" />
-    <None Remove="Sprites\crub_left.png" />
-    <None Remove="Sprites\crub_right.png" />
-    <None Remove="Sprites\finish.png" />
-    <None Remove="Sprites\finish_1.png" />
-    <None Remove="Sprites\mike_jump_left.png" />
-    <None Remove="Sprites\mike_jump_right.png" />
-    <None Remove="Sprites\mike_knife_left.png" />
-    <None Remove="Sprites\mike_knife_right.png" />
-    <None Remove="Sprites\mike_left.png" />
-    <None Remove="Sprites\mike_right.png" />
-    <None Remove="Sprites\mike_ulta_left.png" />
-    <None Remove="Sprites\mike_ulta_right.png" />
-    <None Remove="Sprites\octopus_down_left.png" />
-    <None Remove="Sprites\octopus_down_right.png" />
-    <None Remove="Sprites\octopus_up_left.png" />
-    <None Remove="Sprites\octopus_up_right.png" />
-    <None Remove="Sprites\pearl.png" />
-    <None Remove="Sprites\pearl_1.png" />
+    <Resource Include="Sprites\**\*.png" />
   </ItemGroup>
+
   <ItemGroup>
-    <Content Include="Sprites\background.png">
+    <None Update="Scenes\**\*.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sprites\crub_left.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sprites\crub_right.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sprites\finish_1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sprites\mike_jump_left.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sprites\mike_jump_right.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sprites\mike_knife_left.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sprites\mike_knife_right.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sprites\mike_left.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sprites\mike_right.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sprites\mike_ulta_left.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sprites\mike_ulta_right.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sprites\octopus_down_left.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sprites\octopus_down_right.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sprites\octopus_up_left.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sprites\octopus_up_right.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sprites\pearl_1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Scenes\Scene_0.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
   <ItemGroup>
-    <Folder Include="Scripts\GameObjects\Enemies\" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 </Project>
