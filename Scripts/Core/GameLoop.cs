@@ -6,16 +6,19 @@ namespace Sluggity.Core
 {
     public class GameLoop
     {
-        private const double k_maxDeltaTime = 1.0 / 30;
+        public const double FixedDeltaTime = 1.0 / 60;
+        private const double k_maxFrameTime = 0.25;
 
         private readonly Stopwatch m_stopwatch = new Stopwatch();
         private double m_lastTime;
-        private bool m_isRunning;
+        private double m_accumulator;
 
-        public event Action<double> Tick;
+        public event Action<double> Update;
+        public event Action<double> FixedUpdate;
+        public event Action Render;
 
-        public bool IsRunning => m_isRunning;
-    
+        public bool IsRunning { get; private set; }
+
         public void Start()
         {
             if (IsRunning)
@@ -23,12 +26,13 @@ namespace Sluggity.Core
                 return;
             }
 
-            m_isRunning = true;
+            IsRunning = true;
             m_lastTime = 0;
+            m_accumulator = 0;
             m_stopwatch.Restart();
             CompositionTarget.Rendering += OnRendering;
         }
-    
+
         public void Stop()
         {
             if (!IsRunning)
@@ -36,18 +40,27 @@ namespace Sluggity.Core
                 return;
             }
 
-            m_isRunning = false;
+            IsRunning = false;
             m_stopwatch.Stop();
             CompositionTarget.Rendering -= OnRendering;
         }
-    
+
         private void OnRendering(object sender, EventArgs e)
         {
             double time = m_stopwatch.Elapsed.TotalSeconds;
-            double deltaTime = Math.Min(time - m_lastTime, k_maxDeltaTime);
+            double frameTime = Math.Min(time - m_lastTime, k_maxFrameTime);
             m_lastTime = time;
 
-            Tick?.Invoke(deltaTime);
+            Update?.Invoke(frameTime);
+
+            m_accumulator += frameTime;
+            while (m_accumulator >= FixedDeltaTime)
+            {
+                FixedUpdate?.Invoke(FixedDeltaTime);
+                m_accumulator -= FixedDeltaTime;
+            }
+
+            Render?.Invoke();
         }
     }
 }
