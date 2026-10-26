@@ -60,7 +60,7 @@ namespace Sluggity.Pages
             crab.AddComponent(new Collider(-60, 0, 120, 70, true));
 
             var player = m_scene.Add(new PlayerCharacter(100, 456));
-            m_scene.Add(new CameraRig(player));
+            m_scene.Add(new CameraRig(player, new CameraBounds(0, 1600, 0, 1600)));
 
             var ground = m_scene.Add(new GameObject(0, 0));
             ground.AddComponent(new RectangleView(800, 50, Colors.DarkGreen));
